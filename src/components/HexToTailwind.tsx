@@ -1,168 +1,157 @@
-import React, { useState } from 'react';
-import { findClosestTailwindColors, parseHex, parseRgbString, parseOklchString, rgbToHex, rgbToOklch, oklchToRgb, hexToRgb } from '@/utils/colorUtils';
-import { ColorMatch, TailwindColor } from '@/types';
+import { memo } from 'react';
+import { useColorInput } from '@/hooks/useColorInput';
 import ColorCard from '@/components/ColorCard';
+import ColorInput from './ColorInput';
 import { ArrowDown } from 'lucide-react';
+import { DEFAULT_COLOR } from '@/constants';
 
-const HexToTailwind: React.FC = () => {
-  const [hexInput, setHexInput] = useState<string>('#3b82f6');
-  const [rgbInput, setRgbInput] = useState<string>('59, 130, 246');
-  const [oklchInput, setOklchInput] = useState<string>('oklch(60.13% 0.198 255.45)');
-  
-  const [results, setResults] = useState<ColorMatch[]>([]);
-  const [parsedColor, setParsedColor] = useState<TailwindColor | null>(null);
+// ============================================================================
+// HexToTailwind Component - Hex 轉 Tailwind 顏色轉換頁面
+// ============================================================================
 
-  // Initialize on mount
-  React.useEffect(() => {
-     handleHexChange('#3b82f6');
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+/**
+ * HexToTailwind - Hex 色碼轉換為最接近的 Tailwind 顏色
+ *
+ * 此頁面允許使用者：
+ * 1. 輸入 Hex 色碼、RGB 或 OKLCH 格式的顏色
+ * 2. 自動解析並顯示檢測到的色彩（在轉換區塊中）
+ * 3. 看到最接近的 Tailwind 顏色匹配結果
+ * 4. 複製匹配的顏色類別名或十六進位代碼
+ *
+ * 技術實作：
+ * - 使用 useColorInput Hook 管理三種色彩格式的雙向同步
+ * - 使用歐幾里得距離演算法在 OKLCH 色彩空間中尋找最接近的顏色
+ * - 使用 memo() 優化重新渲染性能
+ * - ColorInput 元件支援三種格式的獨立輸入
+ * - 色彩預覽圓形提供即時視覺反饋
+ *
+ * 工作流程：
+ * 1. 使用者在任一輸入欄輸入色彩（Hex、RGB 或 OKLCH）
+ * 2. useColorInput Hook 自動驗證並轉換為其他格式
+ * 3. 檢測到的顏色顯示在色彩預覽圓形和 ColorCard 中
+ * 4. 最接近的 Tailwind 顏色列表在下方顯示
+ * 5. 最接近的顏色用特殊樣式突出顯示（isClosest=true）
+ */
+const HexToTailwind = memo(() => {
+  // ========================================================================
+  // State - 使用 useColorInput Hook 管理顏色狀態
+  // ========================================================================
 
-  const updateAll = (rgb: {r: number, g: number, b: number}) => {
-     const hex = rgbToHex(rgb.r, rgb.g, rgb.b);
-     const oklch = rgbToOklch(rgb.r, rgb.g, rgb.b);
-     
-     // Set valid parsed color
-     setParsedColor({
-       class: 'Input Color',
-       hex: hex,
-       rgb: rgb
-     });
-
-     // Find tailwind matches
-     try {
-       const closest = findClosestTailwindColors(hex);
-       setResults(closest);
-     } catch (e) {
-       console.error(e);
-       setResults([]);
-     }
-     
-     return { hex, oklch };
-  }
-
-  const handleHexChange = (val: string) => {
-    setHexInput(val);
-    const parsed = parseHex(val);
-    if (parsed) {
-        const rgb = hexToRgb(parsed);
-        if (rgb) {
-            const { oklch } = updateAll(rgb);
-            // Update other fields
-            setRgbInput(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
-            setOklchInput(oklch);
-        }
-    } else {
-        // Invalidate if too short? 
-        // Or just don't update others
-    }
-  };
-
-  const handleRgbChange = (val: string) => {
-    setRgbInput(val);
-    const parsed = parseRgbString(val);
-    if (parsed) {
-        const { hex, oklch } = updateAll(parsed);
-        setHexInput(hex);
-        setOklchInput(oklch);
-    }
-  };
-
-  const handleOklchChange = (val: string) => {
-    setOklchInput(val);
-    const parsed = parseOklchString(val);
-    if (parsed) {
-        const rgb = oklchToRgb(parsed.l, parsed.c, parsed.h);
-        const { hex } = updateAll(rgb);
-        setHexInput(hex);
-        setRgbInput(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
-    }
-  };
+  const {
+    hexInput,
+    rgbInput,
+    oklchInput,
+    parsedColor,
+    matches,
+    setHexInput,
+    setRgbInput,
+    setOklchInput,
+  } = useColorInput(DEFAULT_COLOR);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
-      
-      {/* Three Input Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* HEX Input */}
-          <div className="space-y-2">
-             <label className="text-xs font-bold text-indigo-400 uppercase tracking-wider">HEX Code</label>
-             <div className="relative">
-                 <input
-                    type="text"
-                    value={hexInput}
-                    onChange={(e) => handleHexChange(e.target.value)}
-                    placeholder="#3b82f6"
-                    className="w-full bg-slate-800 border border-slate-700 text-white pl-4 pr-10 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-mono"
-                 />
-                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs font-bold">#</div>
-             </div>
-          </div>
+    <div className="space-y-8">
+      {/* ====================================================================
+          輸入區塊 - 三種格式的顏色輸入欄（Hex、RGB、OKLCH）
+          ==================================================================== */}
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {/* Hex 色碼輸入 - 最常見的格式 */}
+        <ColorInput
+          label="HEX Code"
+          value={hexInput}
+          onChange={setHexInput}
+          placeholder="#3b82f6"
+          accentColor="indigo"
+          icon="#"
+        />
 
-          {/* RGB Input */}
-          <div className="space-y-2">
-             <label className="text-xs font-bold text-pink-400 uppercase tracking-wider">RGB Values</label>
-             <input
-                type="text"
-                value={rgbInput}
-                onChange={(e) => handleRgbChange(e.target.value)}
-                placeholder="59, 130, 246"
-                className="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 transition-all font-mono"
-             />
-          </div>
+        {/* RGB 輸入 - 供參考和調整 */}
+        <ColorInput
+          label="RGB Values"
+          value={rgbInput}
+          onChange={setRgbInput}
+          placeholder="59, 130, 246"
+          accentColor="pink"
+        />
 
-          {/* OKLCH Input */}
-          <div className="space-y-2">
-             <label className="text-xs font-bold text-green-400 uppercase tracking-wider">OKLCH</label>
-             <input
-                type="text"
-                value={oklchInput}
-                onChange={(e) => handleOklchChange(e.target.value)}
-                placeholder="oklch(0.6 0.2 250)"
-                className="w-full bg-slate-800 border border-slate-700 text-white px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition-all font-mono"
-             />
-          </div>
-
+        {/* OKLCH 輸入 - 感知均勻色彩空間 */}
+        <ColorInput
+          label="OKLCH"
+          value={oklchInput}
+          onChange={setOklchInput}
+          placeholder="oklch(0.6 0.2 250)"
+          accentColor="green"
+        />
       </div>
 
-      {/* Current Color Indicator */}
-      <div className="flex justify-center -mt-4 mb-4">
-         <div 
-           className="w-16 h-16 rounded-full border-4 border-slate-800 shadow-lg transition-colors duration-300"
-           style={{ backgroundColor: parsedColor ? parsedColor.hex : 'transparent' }}
-         />
+      {/* ====================================================================
+          色彩預覽 - 圓形預覽框，即時反映使用者輸入的顏色
+          ==================================================================== */}
+      <div className="mb-4 -mt-4 flex justify-center">
+        <div
+          className="h-16 w-16 rounded-full border-4 border-slate-800 shadow-lg transition-colors duration-300"
+          style={{ backgroundColor: parsedColor?.hex || 'transparent' }}
+        />
       </div>
 
-      <div className="space-y-6">
-        {parsedColor && (
-           <div className="animate-in fade-in slide-in-from-bottom-2 duration-500">
-             <div className="flex items-center gap-4 mb-4">
-                 <div className="h-px bg-slate-800 flex-1"></div>
-                 <span className="text-slate-500 text-xs font-bold uppercase tracking-widest">Detected Color</span>
-                 <div className="h-px bg-slate-800 flex-1"></div>
-             </div>
-             <ColorCard color={parsedColor} />
-             
-             <div className="flex justify-center mt-6 text-slate-600">
-                <ArrowDown size={24} className="animate-bounce" />
-             </div>
-           </div>
-        )}
+      {/* Results Section */}
+      {parsedColor && (
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+          {/* ================================================================
+              分割線和標題 - 區隔檢測到的顏色區塊
+              ================================================================ */}
+          <div className="flex items-center gap-4">
+            <div className="h-px flex-1 bg-slate-800"></div>
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-500">
+              Detected Color
+            </span>
+            <div className="h-px flex-1 bg-slate-800"></div>
+          </div>
 
-        {results.length > 0 && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
-            <h2 className="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-4">Closest Tailwind Matches</h2>
-            <div className="space-y-3">
-              {results.map((match, idx) => (
-                <ColorCard key={match.class} color={match} isClosest={idx === 0} />
-              ))}
+          {/* ================================================================
+              解析後的顏色顯示 - 使用 ColorCard 元件展示完整顏色資訊
+              包括：顏色名稱、Hex、RGB、OKLCH 和複製按鈕
+              ================================================================ */}
+          <ColorCard color={parsedColor} />
+
+          {/* ================================================================
+              箭頭動畫 - 從輸入到結果的視覺引導
+              ================================================================ */}
+          <div className="flex justify-center text-slate-600">
+            <ArrowDown size={24} className="animate-bounce" />
+          </div>
+
+          {/* ================================================================
+              最接近的顏色列表 - 顯示從 Tailwind 調色盤中找到的匹配項
+              使用歐幾里得距離演算法在 OKLCH 色彩空間中計算
+              ================================================================ */}
+          {matches.length > 0 && (
+            <div className="space-y-4">
+              {/* 分割線和標題 */}
+              <div className="flex items-center gap-4">
+                <div className="h-px flex-1 bg-slate-800"></div>
+                <span className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                  Closest Matches
+                </span>
+                <div className="h-px flex-1 bg-slate-800"></div>
+              </div>
+
+              {/* 顏色卡片列表
+                  - 第一個結果（index === 0）用 isClosest=true 突出顯示
+                  - 其餘結果正常顯示，包含偏差指標
+              */}
+              <div className="space-y-3">
+                {matches.map((match, index) => (
+                  <ColorCard key={match.class} color={match} isClosest={index === 0} />
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
-};
+});
+
+HexToTailwind.displayName = 'HexToTailwind';
 
 export default HexToTailwind;
