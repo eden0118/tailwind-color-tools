@@ -1,4 +1,4 @@
-import { TailwindColor, ColorMatch } from '../types';
+import { TailwindColor, ColorMatch } from '@/types';
 
 // Helper to convert Hex to RGB
 export const hexToRgb = (hex: string): { r: number; g: number; b: number } | null => {

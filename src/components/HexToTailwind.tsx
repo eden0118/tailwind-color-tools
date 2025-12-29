@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { findClosestTailwindColors, parseHex, parseRgbString, parseOklchString, rgbToHex, rgbToOklch, oklchToRgb, hexToRgb } from '../utils/colorUtils';
-import { ColorMatch, TailwindColor } from '../types';
-import ColorCard from './ColorCard';
+import { findClosestTailwindColors, parseHex, parseRgbString, parseOklchString, rgbToHex, rgbToOklch, oklchToRgb, hexToRgb } from '@/utils/colorUtils';
+import { ColorMatch, TailwindColor } from '@/types';
+import ColorCard from '@/components/ColorCard';
 import { ArrowDown } from 'lucide-react';
 
 const HexToTailwind: React.FC = () => {

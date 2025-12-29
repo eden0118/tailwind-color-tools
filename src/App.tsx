@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Palette, Hash } from 'lucide-react';
-import HexToTailwind from './components/HexToTailwind';
-import TailwindToHex from './components/TailwindToHex';
-import { AppMode } from './types';
+import HexToTailwind from '@/components/HexToTailwind';
+import TailwindToHex from '@/components/TailwindToHex';
+import { AppMode } from '@/types';
 
 const App: React.FC = () => {
   const [mode, setMode] = useState<AppMode>(AppMode.HEX_TO_TAILWIND);

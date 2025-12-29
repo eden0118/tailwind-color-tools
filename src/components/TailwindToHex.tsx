@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { findHexByClass, ALL_TAILWIND_COLORS } from '../utils/colorUtils';
-import { TailwindColor } from '../types';
-import ColorCard from './ColorCard';
+import { findHexByClass, ALL_TAILWIND_COLORS } from '@/utils/colorUtils';
+import { TailwindColor } from '@/types';
+import ColorCard from '@/components/ColorCard';
 import { Search, X } from 'lucide-react';
 
 const TailwindToHex: React.FC = () => {

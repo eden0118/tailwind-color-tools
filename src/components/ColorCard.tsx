@@ -1,7 +1,7 @@
 import React from 'react';
-import { ColorMatch, TailwindColor } from '../types';
+import { ColorMatch, TailwindColor } from '@/types';
 import { Clipboard, Check } from 'lucide-react';
-import { rgbToOklch } from '../utils/colorUtils';
+import { rgbToOklch } from '@/utils/colorUtils';
 
 interface ColorCardProps {
   color: TailwindColor | ColorMatch;

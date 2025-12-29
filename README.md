@@ -1,20 +1,63 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Tailwind Color Master
 
-# Run and deploy your AI Studio app
+一個實用的 Tailwind CSS 顏色工具，幫助開發者輕鬆在 Hex、RGB、OKLCH 和 Tailwind 顏色類別之間轉換。
 
-This contains everything you need to run your app locally.
+## 功能特色
 
-View your app in AI Studio: https://ai.studio/apps/drive/1DOOEcn2phSW274jWDHUaP4OZW1tcaq8a
+- **Hex to Tailwind**: 輸入任意顏色代碼（Hex、RGB、OKLCH），找到最接近的 Tailwind 顏色類別
+- **Tailwind to Hex**: 瀏覽完整的 Tailwind 調色盤，快速查找顏色對應的 Hex 值
 
-## Run Locally
+## 技術棧
 
-**Prerequisites:**  Node.js
+- React 19
+- TypeScript
+- Vite 6
+- Tailwind CSS v4
+- Prettier + prettier-plugin-tailwindcss
 
+## 快速開始
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+# 安裝依賴
+npm install
+
+# 啟動開發伺服器
+npm run dev
+
+# 建構生產版本
+npm run build
+
+# 預覽生產版本
+npm run preview
+
+# 格式化程式碼
+npm run format
+```
+
+## 專案結構
+
+```
+tailwind-color-tools/
+├── public/              # 靜態資源
+├── src/
+│   ├── components/      # React 組件
+│   │   ├── ColorCard.tsx
+│   │   ├── HexToTailwind.tsx
+│   │   └── TailwindToHex.tsx
+│   ├── utils/           # 工具函式
+│   │   └── colorUtils.ts
+│   ├── App.tsx          # 主應用組件
+│   ├── main.tsx         # 應用入口
+│   ├── types.ts         # TypeScript 類型定義
+│   └── index.css        # 全域樣式
+├── index.html           # HTML 模板
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── .prettierrc          # Prettier 配置
+└── README.md
+```
+
+## License
+
+MIT
