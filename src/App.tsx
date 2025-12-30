@@ -13,7 +13,7 @@ const App = memo(() => {
   const [mode, setMode] = useState<AppMode>(AppMode.HEX_TO_TAILWIND);
 
   return (
-    <div className="selection:bg-indigo-500/30 min-h-screen bg-slate-900 font-sans text-slate-50">
+    <div className="min-h-screen bg-slate-900 font-sans text-slate-50 selection:bg-indigo-500/30">
       {/* Header */}
       <Header mode={mode} onModeChange={setMode} />
 

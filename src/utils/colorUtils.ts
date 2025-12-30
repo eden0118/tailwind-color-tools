@@ -1,11 +1,5 @@
 import { TailwindColor, ColorMatch } from '@/types';
-import {
-  COLORS,
-  HEX_PATTERN,
-  RGB_PATTERN,
-  OKLCH_PATTERN,
-  DEFAULT_MATCH_LIMIT,
-} from '@/constants';
+import { COLORS, HEX_PATTERN, RGB_PATTERN, OKLCH_PATTERN, DEFAULT_MATCH_LIMIT } from '@/constants';
 
 interface RGB {
   r: number;
@@ -79,9 +73,9 @@ export const rgbToOklch = (r: number, g: number, b: number): string => {
   const s_ = Math.cbrt(s);
 
   // 4. LMS to OKLab
-  const L = 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_;
-  const a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_;
-  const b_ = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_;
+  const L = 0.2104542553 * l_ + 0.793617785 * m_ - 0.0040720468 * s_;
+  const a = 1.9779984951 * l_ - 2.428592205 * m_ + 0.4505937099 * s_;
+  const b_ = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.808675766 * s_;
 
   // 5. OKLab to OKLCH
   const C = Math.sqrt(a * a + b_ * b_);
@@ -112,7 +106,7 @@ export const oklchToRgb = (l: number, c: number, h: number): RGB => {
   // 2. OKLab -> LMS'
   const l_ = l + 0.3963377774 * a + 0.2158037573 * b;
   const m_ = l - 0.1055613458 * a - 0.0638541728 * b;
-  const s_ = l - 0.0894841775 * a - 1.2914855480 * b;
+  const s_ = l - 0.0894841775 * a - 1.291485548 * b;
 
   // 3. LMS' -> LMS (cube)
   const l3 = l_ * l_ * l_;
@@ -122,7 +116,7 @@ export const oklchToRgb = (l: number, c: number, h: number): RGB => {
   // 4. LMS -> Linear sRGB
   const rLin = 4.0767416621 * l3 - 3.3077115913 * m3 + 0.2309699292 * s3;
   const gLin = -1.2684380046 * l3 + 2.6097574011 * m3 - 0.3413193965 * s3;
-  const bLin = -0.0041960863 * l3 - 0.7034186147 * m3 + 1.7076147010 * s3;
+  const bLin = -0.0041960863 * l3 - 0.7034186147 * m3 + 1.707614701 * s3;
 
   // 5. Linear sRGB -> sRGB (Gamma correction)
   const toSrgb = (val: number) => {
@@ -173,9 +167,7 @@ export const parseRgbString = (input: string): RGB | null => {
  * Parses OKLCH color string
  * Format: "oklch(L% C H)" where L is 0-100%, C is typically 0-0.4, H is 0-360
  */
-export const parseOklchString = (
-  input: string
-): { l: number; c: number; h: number } | null => {
+export const parseOklchString = (input: string): { l: number; c: number; h: number } | null => {
   const clean = input.trim().toLowerCase();
   const match = OKLCH_PATTERN.exec(clean);
 
@@ -238,12 +230,11 @@ const colorDistance = (rgb1: RGB, rgb2: RGB): number => {
  * Converts color palette record to TailwindColor array
  */
 const buildColorPalette = (colors: Record<string, string>): TailwindColor[] => {
-  return Object.entries(colors)
-    .map(([name, hex]) => {
-      const rgb = hexToRgb(hex);
-      if (!rgb) throw new Error(`Invalid hex in palette: ${hex}`);
-      return { class: name, hex, rgb };
-    });
+  return Object.entries(colors).map(([name, hex]) => {
+    const rgb = hexToRgb(hex);
+    if (!rgb) throw new Error(`Invalid hex in palette: ${hex}`);
+    return { class: name, hex, rgb };
+  });
 };
 
 // Precomputed palette

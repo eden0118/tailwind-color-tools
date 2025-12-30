@@ -86,7 +86,7 @@ const HexToTailwind = memo(() => {
       {/* ====================================================================
           色彩預覽 - 圓形預覽框，即時反映使用者輸入的顏色
           ==================================================================== */}
-      <div className="mb-4 -mt-4 flex justify-center">
+      <div className="-mt-4 mb-4 flex justify-center">
         <div
           className="h-16 w-16 rounded-full border-4 border-slate-800 shadow-lg transition-colors duration-300"
           style={{ backgroundColor: parsedColor?.hex || 'transparent' }}
@@ -95,13 +95,13 @@ const HexToTailwind = memo(() => {
 
       {/* Results Section */}
       {parsedColor && (
-        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <div className="animate-in fade-in slide-in-from-bottom-2 space-y-6 duration-500">
           {/* ================================================================
               分割線和標題 - 區隔檢測到的顏色區塊
               ================================================================ */}
           <div className="flex items-center gap-4">
             <div className="h-px flex-1 bg-slate-800"></div>
-            <span className="text-xs font-bold uppercase tracking-widest text-slate-500">
+            <span className="text-xs font-bold tracking-widest text-slate-500 uppercase">
               Detected Color
             </span>
             <div className="h-px flex-1 bg-slate-800"></div>
@@ -129,7 +129,7 @@ const HexToTailwind = memo(() => {
               {/* 分割線和標題 */}
               <div className="flex items-center gap-4">
                 <div className="h-px flex-1 bg-slate-800"></div>
-                <span className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                <span className="text-xs font-bold tracking-widest text-slate-500 uppercase">
                   Closest Matches
                 </span>
                 <div className="h-px flex-1 bg-slate-800"></div>

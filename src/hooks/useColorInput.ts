@@ -111,18 +111,21 @@ export const useColorInput = (defaultColor: string = DEFAULT_COLOR): UseColorInp
    * 2. 轉換為 RGB
    * 3. 更新所有格式
    */
-  const setHexInput = useCallback((val: string) => {
-    setHexInputState(val);
-    const parsed = parseHex(val);
-    if (parsed) {
-      const rgb = hexToRgb(parsed);
-      if (rgb) {
-        const { oklch } = updateFromRgb(rgb);
-        setRgbInputState(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
-        setOklchInputState(oklch);
+  const setHexInput = useCallback(
+    (val: string) => {
+      setHexInputState(val);
+      const parsed = parseHex(val);
+      if (parsed) {
+        const rgb = hexToRgb(parsed);
+        if (rgb) {
+          const { oklch } = updateFromRgb(rgb);
+          setRgbInputState(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
+          setOklchInputState(oklch);
+        }
       }
-    }
-  }, [updateFromRgb]);
+    },
+    [updateFromRgb]
+  );
 
   /**
    * setRgbInput - 處理 RGB 格式輸入變化
@@ -131,15 +134,18 @@ export const useColorInput = (defaultColor: string = DEFAULT_COLOR): UseColorInp
    * 1. 驗證 RGB 格式（如 "255, 128, 0"）
    * 2. 更新其他格式
    */
-  const setRgbInput = useCallback((val: string) => {
-    setRgbInputState(val);
-    const parsed = parseRgbString(val);
-    if (parsed) {
-      const { hex, oklch } = updateFromRgb(parsed);
-      setHexInputState(hex);
-      setOklchInputState(oklch);
-    }
-  }, [updateFromRgb]);
+  const setRgbInput = useCallback(
+    (val: string) => {
+      setRgbInputState(val);
+      const parsed = parseRgbString(val);
+      if (parsed) {
+        const { hex, oklch } = updateFromRgb(parsed);
+        setHexInputState(hex);
+        setOklchInputState(oklch);
+      }
+    },
+    [updateFromRgb]
+  );
 
   /**
    * setOklchInput - 處理 OKLCH 格式輸入變化
@@ -149,16 +155,19 @@ export const useColorInput = (defaultColor: string = DEFAULT_COLOR): UseColorInp
    * 2. 轉換為 RGB
    * 3. 更新其他格式
    */
-  const setOklchInput = useCallback((val: string) => {
-    setOklchInputState(val);
-    const parsed = parseOklchString(val);
-    if (parsed) {
-      const rgb = oklchToRgb(parsed.l, parsed.c, parsed.h);
-      const { hex } = updateFromRgb(rgb);
-      setHexInputState(hex);
-      setRgbInputState(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
-    }
-  }, [updateFromRgb]);
+  const setOklchInput = useCallback(
+    (val: string) => {
+      setOklchInputState(val);
+      const parsed = parseOklchString(val);
+      if (parsed) {
+        const rgb = oklchToRgb(parsed.l, parsed.c, parsed.h);
+        const { hex } = updateFromRgb(rgb);
+        setHexInputState(hex);
+        setRgbInputState(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
+      }
+    },
+    [updateFromRgb]
+  );
 
   // 初始化：在首次渲染時設定初始狀態
   if (!parsedColor) {

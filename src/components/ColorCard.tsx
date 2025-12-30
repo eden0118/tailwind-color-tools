@@ -95,7 +95,7 @@ interface FormatDisplayProps {
 
 const FormatDisplay = memo<FormatDisplayProps>(({ text, type, isCopied, onCopy }) => (
   <div className="flex items-center gap-2">
-    <span className="text-xs font-mono">{text}</span>
+    <span className="font-mono text-xs">{text}</span>
     <button
       onClick={() => onCopy(text, type)}
       className="text-slate-600 transition-colors hover:text-slate-400"
@@ -179,11 +179,13 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
     >
       {/* 色塊預覽 */}
       <div
-        className="h-24 w-full shrink-0 flex items-center justify-center rounded-lg shadow-inner md:w-24"
+        className="flex h-24 w-full shrink-0 items-center justify-center rounded-lg shadow-inner md:w-24"
         style={{ backgroundColor: color.hex }}
       >
         {isClosest && (
-          <span className={`rounded-full bg-black/20 px-2 py-1 text-xs font-bold text-${textColor}`}>
+          <span
+            className={`rounded-full bg-black/20 px-2 py-1 text-xs font-bold text-${textColor}`}
+          >
             Exact-ish
           </span>
         )}
@@ -196,23 +198,38 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
 
         {/* 複製按鈕（主要） */}
         <div className="mt-2 flex flex-col gap-3 md:flex-row md:justify-start">
-          <CopyButton text={color.class} type="class" isCopied={copied === 'class'} onCopy={handleCopy} />
+          <CopyButton
+            text={color.class}
+            type="class"
+            isCopied={copied === 'class'}
+            onCopy={handleCopy}
+          />
           <CopyButton text={color.hex} type="hex" isCopied={copied === 'hex'} onCopy={handleCopy} />
         </div>
 
         {/* 格式資訊（RGB 和 OKLCH） */}
         <div className="mt-2 flex flex-col items-center gap-1 text-slate-500 md:flex-row md:items-start md:gap-4">
-          <FormatDisplay text={rgbString} type="rgb" isCopied={copied === 'rgb'} onCopy={handleCopy} />
-          <FormatDisplay text={oklchString} type="oklch" isCopied={copied === 'oklch'} onCopy={handleCopy} />
+          <FormatDisplay
+            text={rgbString}
+            type="rgb"
+            isCopied={copied === 'rgb'}
+            onCopy={handleCopy}
+          />
+          <FormatDisplay
+            text={oklchString}
+            type="oklch"
+            isCopied={copied === 'oklch'}
+            onCopy={handleCopy}
+          />
         </div>
       </div>
 
       {/* 偏差指標（僅在匹配結果中顯示） */}
       {'distance' in color && (
         <div className="hidden text-right md:block">
-          <div className="mb-1 text-xs uppercase tracking-wider text-slate-500">Deviation</div>
+          <div className="mb-1 text-xs tracking-wider text-slate-500 uppercase">Deviation</div>
           <div
-            className={`text-lg font-mono font-bold ${
+            className={`font-mono text-lg font-bold ${
               (color as ColorMatch).distance < 10 ? 'text-green-400' : 'text-yellow-400'
             }`}
           >
