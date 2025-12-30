@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useState, useRef } from "react";
 import { Info } from "lucide-react";
 
 interface ColorInputProps {
@@ -49,9 +49,18 @@ Commonly used for screen color representation.`,
 };
 
 const accentMap = {
-  indigo: "indigo-400 focus:ring-indigo-500",
-  pink: "pink-400 focus:ring-pink-500",
-  green: "green-400 focus:ring-green-500",
+  indigo: {
+    label: 'text-accent-indigo',
+    ring: 'focus:ring-accent-indigo-focus',
+  },
+  pink: {
+    label: 'text-accent-pink',
+    ring: 'focus:ring-pink-500',
+  },
+  green: {
+    label: 'text-accent-green',
+    ring: 'focus:ring-green-500',
+  },
 };
 
 /**
@@ -59,40 +68,63 @@ const accentMap = {
  */
 const ColorInput = memo<ColorInputProps>(
   ({ label, value, onChange, placeholder, accentColor, icon, helpText }) => {
-    const [showTooltip, setShowTooltip] = useState(false);
-    const accentClasses = accentMap[accentColor];
+    const [isTooltipVisible, setTooltipVisible] = useState(false);
+    const showTimeoutRef = useRef<number | null>(null);
+    const hideTimeoutRef = useRef<number | null>(null);
+
+    const accentStyles = accentMap[accentColor];
     const tooltipText =
-      helpText || FORMAT_TOOLTIPS[label as keyof typeof FORMAT_TOOLTIPS] || "";
+      helpText || FORMAT_TOOLTIPS[label as keyof typeof FORMAT_TOOLTIPS] || '';
+
+    const handleMouseEnter = () => {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
+      showTimeoutRef.current = window.setTimeout(() => {
+        setTooltipVisible(true);
+      }, 300);
+    };
+
+    const handleMouseLeave = () => {
+      if (showTimeoutRef.current) {
+        clearTimeout(showTimeoutRef.current);
+        showTimeoutRef.current = null;
+      }
+      hideTimeoutRef.current = window.setTimeout(() => {
+        setTooltipVisible(false);
+      }, 200);
+    };
 
     return (
       <div className="space-y-2">
         <div className="flex items-center gap-2">
           <label
-            className={`text-xs font-bold tracking-wider uppercase text-${
-              accentClasses.split(" ")[0]
-            }`}
+            className={`text-xs font-bold tracking-wider uppercase ${accentStyles.label}`}
           >
             {label}
           </label>
           {/* Info Icon with Tooltip */}
-          <div className="relative">
+          <div
+            className="relative"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             <button
               type="button"
-              onMouseEnter={() => setShowTooltip(true)}
-              onMouseLeave={() => setShowTooltip(false)} // prettier-ignore
-              className="cursor-pointer text-slate-500 transition-colors hover:text-slate-300"
-              title="Color format info"
+              className="cursor-pointer text-text-muted transition-colors hover:text-text-secondary"
+              aria-label="Color format info"
             >
               <Info size={14} />
             </button>
 
             {/* Tooltip */}
-            {showTooltip && tooltipText && (
-              <div className="absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2">
-                <div className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-xs text-slate-300 shadow-lg">
+            {isTooltipVisible && tooltipText && (
+              <div className="absolute top-full left-1/2 z-50 mt-2 w-max max-w-xs -translate-x-1/2 transform">
+                <div className="whitespace-pre-wrap rounded-lg border border-border bg-background-primary px-3 py-2 text-xs text-text-secondary shadow-lg">
                   {tooltipText}
                   {/* Tooltip Arrow */}
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-slate-900"></div>
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-background-primary"></div>
                 </div>
               </div>
             )}
@@ -104,10 +136,10 @@ const ColorInput = memo<ColorInputProps>(
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className={`w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 font-mono text-white transition-all focus:ring-2 focus:outline-none ${accentClasses}`}
+            className={`w-full rounded-lg border border-border bg-background-secondary px-4 py-3 font-mono text-text-primary transition-all focus:ring-2 focus:outline-none ${accentStyles.ring}`}
           />
           {icon && (
-            <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs font-bold text-slate-500">
+            <div className="absolute top-1/2 right-3 -translate-y-1/2 text-xs font-bold text-text-muted">
               {icon}
             </div>
           )}

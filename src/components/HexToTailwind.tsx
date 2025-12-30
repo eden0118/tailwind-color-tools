@@ -88,7 +88,7 @@ const HexToTailwind = memo(() => {
           ==================================================================== */}
       <div className="-mt-4 mb-4 flex justify-center">
         <div
-          className="h-16 w-16 rounded-full border-4 border-slate-800 shadow-lg transition-colors duration-300"
+          className="h-16 w-16 rounded-full border-4 border-background-secondary shadow-lg transition-colors duration-300"
           style={{ backgroundColor: parsedColor?.hex || 'transparent' }}
         />
       </div>
@@ -100,11 +100,11 @@ const HexToTailwind = memo(() => {
               分割線和標題 - 區隔檢測到的顏色區塊
               ================================================================ */}
           <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-slate-800"></div>
-            <span className="text-xs font-bold tracking-widest text-slate-500 uppercase">
+            <div className="h-px flex-1 bg-background-secondary"></div>
+            <span className="text-xs font-bold tracking-widest text-text-muted uppercase">
               Detected Color
             </span>
-            <div className="h-px flex-1 bg-slate-800"></div>
+            <div className="h-px flex-1 bg-background-secondary"></div>
           </div>
 
           {/* ================================================================
@@ -116,7 +116,7 @@ const HexToTailwind = memo(() => {
           {/* ================================================================
               箭頭動畫 - 從輸入到結果的視覺引導
               ================================================================ */}
-          <div className="flex justify-center text-slate-600">
+          <div className="flex justify-center text-ui">
             <ArrowDown size={24} className="animate-bounce" />
           </div>
 
@@ -128,11 +128,11 @@ const HexToTailwind = memo(() => {
             <div className="space-y-4">
               {/* 分割線和標題 */}
               <div className="flex items-center gap-4">
-                <div className="h-px flex-1 bg-slate-800"></div>
-                <span className="text-xs font-bold tracking-widest text-slate-500 uppercase">
+                <div className="h-px flex-1 bg-background-secondary"></div>
+                <span className="text-xs font-bold tracking-widest text-text-muted uppercase">
                   Closest Matches
                 </span>
-                <div className="h-px flex-1 bg-slate-800"></div>
+                <div className="h-px flex-1 bg-background-secondary"></div>
               </div>
 
               {/* 顏色卡片列表

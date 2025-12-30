@@ -13,13 +13,13 @@ const App = memo(() => {
   const [mode, setMode] = useState<AppMode>(AppMode.HEX_TO_TAILWIND);
 
   return (
-    <div className="min-h-screen bg-slate-900 font-sans text-slate-50 selection:bg-indigo-500/30">
+    <div className="min-h-screen font-sans selection:bg-accent-indigo-focus/30">
       {/* Header */}
       <Header mode={mode} onModeChange={setMode} />
 
       {/* Main Content */}
       <main className="mx-auto max-w-5xl px-4 py-8 md:py-12">
-        <div className="min-h-[60vh] rounded-3xl bg-slate-900/50 p-8">
+        <div className="min-h-[60vh] rounded-3xl bg-background-primary/50 p-8">
           {mode === AppMode.HEX_TO_TAILWIND && <HexToTailwind />}
           {mode === AppMode.TAILWIND_TO_HEX && <TailwindToHex />}
         </div>
@@ -46,7 +46,7 @@ interface HeaderProps {
 }
 
 const Header = memo<HeaderProps>(({ mode, onModeChange }) => (
-  <header className="sticky top-0 z-50 border-b border-slate-800 bg-slate-900/80 backdrop-blur-md">
+  <header className="sticky top-0 z-50 border-b border-border-secondary bg-background-primary/80 backdrop-blur-md">
     <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
       {/* Logo */}
       <div className="flex items-center gap-2">
@@ -54,7 +54,7 @@ const Header = memo<HeaderProps>(({ mode, onModeChange }) => (
           <Palette size={18} className="text-white" />
         </div>
         <h1 className="hidden text-xl font-bold tracking-tight text-white sm:block">
-          Tailwind<span className="text-indigo-400">ColorMaster</span>
+          Tailwind<span className="text-accent-indigo">ColorMaster</span>
         </h1>
       </div>
 
@@ -78,7 +78,7 @@ const ModeSwitch = memo<HeaderProps>(({ mode, onModeChange }) => (
       className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
         mode === AppMode.HEX_TO_TAILWIND
           ? 'bg-indigo-600 text-white shadow-lg'
-          : 'text-slate-400 hover:text-slate-200'
+          : 'text-text-muted hover:text-text-muted-hover'
       }`}
     >
       <Hash size={16} /> Hex <span className="hidden sm:inline">to Class</span>
@@ -90,7 +90,7 @@ const ModeSwitch = memo<HeaderProps>(({ mode, onModeChange }) => (
       className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
         mode === AppMode.TAILWIND_TO_HEX
           ? 'bg-pink-600 text-white shadow-lg'
-          : 'text-slate-400 hover:text-slate-200'
+          : 'text-text-muted hover:text-text-muted-hover'
       }`}
     >
       <Palette size={16} /> Class <span className="hidden sm:inline">to Hex</span>

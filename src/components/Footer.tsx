@@ -4,7 +4,7 @@ import { memo } from 'react';
  * Footer component
  */
 const Footer = memo(() => (
-  <footer className="border-t border-slate-800 py-8 text-center text-sm text-slate-600">
+  <footer className="border-t border-border-secondary py-8 text-center text-sm text-ui">
     <p>Built for developers with React and Tailwind.</p>
   </footer>
 ));

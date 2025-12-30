@@ -162,20 +162,20 @@ interface SearchInputProps {
 
 const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => (
   <div className="mx-auto max-w-3xl space-y-2">
-    <label className="text-sm font-medium text-slate-400">Enter Tailwind Class</label>
+    <label className="text-sm font-medium text-text-muted">Enter Tailwind Class</label>
     <div className="relative">
-      <Search className="absolute top-1/2 left-4 -translate-y-1/2 text-slate-500" size={20} />
+      <Search className="absolute top-1/2 left-4 -translate-y-1/2 text-text-muted" size={20} />
       <input
         type="text"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="e.g. blue-500, red-600..."
-        className="w-full rounded-xl border border-slate-700 bg-slate-800 py-4 pr-12 pl-12 font-mono text-lg text-white transition-all focus:ring-2 focus:ring-pink-500 focus:outline-none"
+        className="w-full rounded-xl border border-border bg-background-secondary py-4 pr-12 pl-12 font-mono text-lg text-text-primary transition-all focus:ring-2 focus:ring-pink-500 focus:outline-none"
       />
       {value && (
         <button
           onClick={onClear}
-          className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 text-slate-500 transition-colors hover:bg-slate-700/50 hover:text-slate-300"
+          className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 text-text-muted transition-colors hover:bg-border/50 hover:text-text-secondary"
           title="Clear input"
         >
           <X size={18} />
@@ -203,7 +203,7 @@ interface ExactMatchViewProps {
 
 const ExactMatchView = memo<ExactMatchViewProps>(({ match }) => (
   <div className="animate-in fade-in slide-in-from-bottom-4 mx-auto max-w-3xl duration-500">
-    <h2 className="mb-3 text-sm font-semibold tracking-wider text-slate-400 uppercase">
+    <h2 className="mb-3 text-sm font-semibold tracking-wider text-text-muted uppercase">
       Exact Match
     </h2>
     <ColorCard color={match} isClosest={true} />
@@ -230,7 +230,7 @@ interface SuggestionsViewProps {
 
 const SuggestionsView = memo<SuggestionsViewProps>(({ suggestions, onSelect }) => (
   <div className="mx-auto max-w-4xl">
-    <h2 className="mb-3 text-sm font-semibold tracking-wider text-slate-400 uppercase">
+    <h2 className="mb-3 text-sm font-semibold tracking-wider text-text-muted uppercase">
       Suggestions
     </h2>
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
@@ -238,10 +238,10 @@ const SuggestionsView = memo<SuggestionsViewProps>(({ suggestions, onSelect }) =
         <button
           key={s.class}
           onClick={() => onSelect(s.class)}
-          className="flex flex-col items-center gap-2 rounded-lg border border-slate-700 bg-slate-800 p-3 transition-all hover:border-pink-500/50 hover:bg-slate-700"
+          className="flex flex-col items-center gap-2 rounded-lg border border-border bg-background-secondary p-3 transition-all hover:border-pink-500/50 hover:bg-border"
         >
           <div className="h-8 w-full rounded" style={{ backgroundColor: s.hex }} />
-          <span className="font-mono text-xs text-slate-300">{s.class}</span>
+          <span className="font-mono text-xs text-text-secondary">{s.class}</span>
         </button>
       ))}
     </div>
@@ -263,7 +263,7 @@ interface NoResultsViewProps {
 }
 
 const NoResultsView = memo<NoResultsViewProps>(({ query }) => (
-  <div className="py-12 text-center text-slate-500">
+  <div className="py-12 text-center text-text-muted">
     <p>No class found matching "{query}"</p>
   </div>
 ));
@@ -289,11 +289,11 @@ interface PaletteViewProps {
 const PaletteView = memo<PaletteViewProps>(({ colorGroups, onSelectColor }) => (
   <div className="animate-in fade-in duration-700">
     <div className="mb-6 flex items-center gap-4">
-      <div className="h-px flex-1 bg-slate-800"></div>
-      <span className="text-sm font-medium tracking-widest text-slate-500 uppercase">
+      <div className="h-px flex-1 bg-background-secondary"></div>
+      <span className="text-sm font-medium tracking-widest text-text-muted uppercase">
         Full Tailwind Palette
       </span>
-      <div className="h-px flex-1 bg-slate-800"></div>
+      <div className="h-px flex-1 bg-background-secondary"></div>
     </div>
 
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -325,8 +325,8 @@ interface ColorFamilyProps {
 }
 
 const ColorFamily = memo<ColorFamilyProps>(({ name, colors, onSelectColor }) => (
-  <div className="rounded-xl border border-slate-800/50 bg-slate-800/30 p-4 transition-colors hover:border-slate-700">
-    <h3 className="mb-3 font-bold text-slate-300 capitalize">{name}</h3>
+  <div className="rounded-xl border border-background-secondary/50 bg-background-secondary/30 p-4 transition-colors hover:border-border">
+    <h3 className="mb-3 font-bold text-text-secondary capitalize">{name}</h3>
     {/*
       顏色網格 - 6 列布局
 
@@ -356,7 +356,7 @@ const ColorFamily = memo<ColorFamilyProps>(({ name, colors, onSelectColor }) => 
             */}
             <span
               className={`text-[10px] font-bold opacity-0 transition-opacity group-hover:opacity-100 ${
-                isLight ? 'text-slate-900' : 'text-white'
+                isLight ? 'text-background-primary' : 'text-text-primary'
               }`}
             >
               {shade}

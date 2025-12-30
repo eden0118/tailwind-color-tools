@@ -64,10 +64,10 @@ interface CopyButtonProps {
 const CopyButton = memo<CopyButtonProps>(({ text, type, isCopied, onCopy }) => (
   <button
     onClick={() => onCopy(text, type)}
-    className="flex items-center justify-center gap-2 rounded bg-slate-700 px-3 py-1.5 text-sm text-slate-300 transition-colors hover:bg-slate-600"
+    className="flex items-center justify-center gap-2 rounded bg-border px-3 py-1.5 text-sm text-text-secondary transition-colors hover:bg-ui"
   >
     <span className="font-mono">{text}</span>
-    {isCopied ? <Check size={14} className="text-green-400" /> : <Clipboard size={14} />}
+    {isCopied ? <Check size={14} className="text-accent-green" /> : <Clipboard size={14} />}
   </button>
 ));
 
@@ -98,10 +98,10 @@ const FormatDisplay = memo<FormatDisplayProps>(({ text, type, isCopied, onCopy }
     <span className="font-mono text-xs">{text}</span>
     <button
       onClick={() => onCopy(text, type)}
-      className="text-slate-600 transition-colors hover:text-slate-400"
+      className="text-ui transition-colors hover:text-text-muted"
       title={`Copy ${type?.toUpperCase()}`}
     >
-      {isCopied ? <Check size={12} className="text-green-400" /> : <Clipboard size={12} />}
+      {isCopied ? <Check size={12} className="text-accent-green" /> : <Clipboard size={12} />}
     </button>
   </div>
 ));
@@ -173,8 +173,8 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
     <div
       className={`relative flex flex-col items-center gap-4 rounded-xl p-4 transition-all duration-300 md:flex-row ${
         isClosest
-          ? 'scale-[1.02] bg-slate-800 shadow-lg ring-2 ring-indigo-500'
-          : 'bg-slate-800/50 hover:bg-slate-800'
+          ? 'scale-[1.02] bg-background-secondary shadow-lg ring-2 ring-accent-indigo-focus'
+          : 'bg-background-secondary/50 hover:bg-background-secondary'
       }`}
     >
       {/* 色塊預覽 */}
@@ -194,7 +194,7 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
       {/* 資訊區塊 */}
       <div className="w-full flex-1 text-center md:text-left">
         {/* 顏色名稱 */}
-        <h3 className="mb-1 text-xl font-bold text-white">{color.class}</h3>
+        <h3 className="mb-1 text-xl font-bold text-text-primary">{color.class}</h3>
 
         {/* 複製按鈕（主要） */}
         <div className="mt-2 flex flex-col gap-3 md:flex-row md:justify-start">
@@ -208,7 +208,7 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
         </div>
 
         {/* 格式資訊（RGB 和 OKLCH） */}
-        <div className="mt-2 flex flex-col items-center gap-1 text-slate-500 md:flex-row md:items-start md:gap-4">
+        <div className="mt-2 flex flex-col items-center gap-1 text-text-muted md:flex-row md:items-start md:gap-4">
           <FormatDisplay
             text={rgbString}
             type="rgb"
@@ -227,10 +227,10 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
       {/* 偏差指標（僅在匹配結果中顯示） */}
       {'distance' in color && (
         <div className="hidden text-right md:block">
-          <div className="mb-1 text-xs tracking-wider text-slate-500 uppercase">Deviation</div>
+          <div className="mb-1 text-xs tracking-wider text-text-muted uppercase">Deviation</div>
           <div
             className={`font-mono text-lg font-bold ${
-              (color as ColorMatch).distance < 10 ? 'text-green-400' : 'text-yellow-400'
+              (color as ColorMatch).distance < 10 ? 'text-accent-green' : 'text-yellow-400'
             }`}
           >
             {(color as ColorMatch).distance.toFixed(2)}
