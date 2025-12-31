@@ -1,4 +1,18 @@
-// Tailwind 4.0 Complete Color Palette
+/**
+ * @fileoverview
+ * 這個檔案定義了應用程式中使用的常數，主要是 Tailwind CSS 的顏色庫。
+ *
+ * `COLORS` 物件是應用程式顏色匹配功能的「單一事實來源」(Single Source of Truth)。
+ * `ALL_TAILWIND_COLORS` 陣列 (在 `colorUtils.ts` 中) 是從這個物件預先計算得來的。
+ */
+
+/**
+ * @constant COLORS
+ * 包含完整的 Tailwind CSS v4.0 預設調色盤。
+ * 結構為一個 `Record<string, string>`，其中：
+ * - `key` 是顏色的 class 名稱 (例如, 'slate-50', 'red-500')
+ * - `value` 是對應的十六進位 (HEX) 色碼
+ */
 export const COLORS: Record<string, string> = {
   // Base
   white: '#ffffff',
@@ -269,5 +283,10 @@ export const COLORS: Record<string, string> = {
   'rose-950': '#4c0519',
 };
 
-// Default color used in the app
-export const DEFAULT_COLOR = '#3b82f6'; // blue-500
+/**
+ * @constant DEFAULT_COLOR
+ * 應用程式的預設初始顏色。
+ * 用於 `useColorInput` hook，確保應用程式在首次加載時有一個合理的起始狀態。
+ * 這個值對應 Tailwind 的 'blue-500'。
+ */
+export const DEFAULT_COLOR = '#3b82f6';

@@ -9,9 +9,9 @@ interface SearchInputProps {
 
 const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => (
   <div className="mx-auto max-w-3xl space-y-2">
-    <label className="input-label text-text-muted">Enter Tailwind Class</label>
+    <label className="input-label text-muted">Enter Tailwind Class</label>
     <div className="relative">
-      <Search className="text-text-muted absolute top-1/2 left-4 -translate-y-1/2" size={20} />
+      <Search className="text-muted absolute top-1/2 left-4 -translate-y-1/2" size={20} />
       <input
         type="text"
         value={value}
@@ -22,7 +22,7 @@ const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => (
       {value && (
         <button
           onClick={onClear}
-          className="text-text-muted hover:bg-border/50 hover:text-secondaryText absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 transition-colors"
+          className="text-muted hover:bg-border/50 hover:text-secondaryText absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 transition-colors"
           title="Clear input"
         >
           <X size={18} />

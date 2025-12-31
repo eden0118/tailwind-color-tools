@@ -5,11 +5,12 @@
 
   --color-primaryText: #f8fafc; /* slate-50 */
   --color-secondaryText: #cbd5e1; /* slate-300 */
-  --color-text-muted: #94a3b8; /* slate-400 */
-  --color-text-muted-hover: #e2e8f0; /* slate-200 */
+  --color-muted: #94a3b8; /* slate-400 */
+  --color-muted-hover: #e2e8f0; /* slate-200 */
 
   --color-primary: #60a5fa; /* indigo-400 */
   --color-secondary: #1e293b; /* slate-800 */
+  --color-accent: #fde047; /* yellow-400 */
 
   --color-hex-accent: #f6c252;
   --color-rgb-accent: #f472b6;
@@ -45,10 +46,10 @@
 }
 
 @layer components {
-.input {
-  /* need to add focus ring color */
-  @apply text-primaryText w-full rounded-lg border px-4 py-3 font-mono transition-all focus:border-none focus:ring-2 focus:outline-none;
-}
+  .input {
+    /* need to add focus ring color */
+    @apply text-primaryText w-full rounded-lg border px-4 py-3 font-mono transition-all focus:border-none focus:ring-2 focus:outline-none;
+  }
   .input-label {
     /* need to add text color */
     @apply text-xs font-bold tracking-wider uppercase;

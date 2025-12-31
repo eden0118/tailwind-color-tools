@@ -1,8 +1,36 @@
+/**
+ * @fileoverview
+ * HexToTailwind 頁面元件
+ *
+ * 主要責任：
+ * 1. 管理三種色彩格式輸入（Hex、RGB、OKLCH）的同步轉換
+ * 2. 實時計算與顯示最接近的 Tailwind 色彩匹配
+ * 3. 提供清晰的視覺流程：輸入 → 檢測 → 匹配結果
+ *
+ * 工作流程：
+ * 1. useColorInput Hook 管理色彩狀態與轉換邏輯
+ * 2. 三個 ColorInput 元件接收使用者輸入（Hex、RGB、OKLCH）
+ * 3. 檢測顏色區塊顯示解析後的色彩
+ * 4. 動畫箭頭引導視線
+ * 5. 匹配結果列表展示最接近的 Tailwind 色彩（最接近者高亮）
+ *
+ * 效能最佳化：
+ * - 使用 React.memo() 防止不必要重繪
+ * - ColorInput 與 ColorCard 皆已最佳化
+ * - 色彩匹配在 useColorInput 中預計算
+ *
+ * UX 特色：
+ * - 即時預覽：每個輸入框左側顯示色卡預覽
+ * - 複製反饋：一鍵複製，顯示 ✓ 確認
+ * - 錯誤恢復：無效輸入時優雅降級，灰色色卡提示
+ * - 響應式：行動裝置上自動堆疊三欄輸入框
+ */
 import { memo } from 'react';
 import { useColorInput } from '@/hooks/useColorInput';
-import ColorCard from '@/components/ColorCard';
+import DetectedColorSection from './hexToTailwind/DetectedColorSection';
+import ColorMatchList from './hexToTailwind/ColorMatchList';
+import ArrowDownIcon from './hexToTailwind/ArrowDownIcon';
 import ColorInput from './ColorInput';
-import { ArrowDown } from 'lucide-react';
 import { DEFAULT_COLOR } from '@/constants';
 
 // ============================================================================
@@ -20,7 +48,7 @@ import { DEFAULT_COLOR } from '@/constants';
  *
  * 技術實作：
  * - 使用 useColorInput Hook 管理三種色彩格式的雙向同步
- * - 使用歐幾里得距離演算法在 OKLCH 色彩空間中尋找最接近的顏色
+ * - 使用歐幾里得距離演算法在 RGB 色彩空間中尋找最接近的顏色
  * - 使用 memo() 優化重新渲染性能
  * - ColorInput 元件支援三種格式的獨立輸入
  * - 色彩預覽圓形提供即時視覺反饋
@@ -98,53 +126,9 @@ const HexToTailwind = memo(() => {
           {/* ================================================================
               分割線和標題 - 區隔檢測到的顏色區塊
               ================================================================ */}
-          <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-gray-300"></div>
-            <span className="text-text-muted text-xs font-bold tracking-widest uppercase">
-              Detected Color
-            </span>
-            <div className="h-px flex-1 bg-gray-300"></div>
-          </div>
-
-          {/* ================================================================
-              解析後的顏色顯示 - 使用 ColorCard 元件展示完整顏色資訊
-              包括：顏色名稱、Hex、RGB、OKLCH 和複製按鈕
-              ================================================================ */}
-          <ColorCard color={parsedColor} />
-
-          {/* ================================================================
-              箭頭動畫 - 從輸入到結果的視覺引導
-              ================================================================ */}
-          <div className="text-ui flex justify-center">
-            <ArrowDown size={24} className="animate-bounce" />
-          </div>
-
-          {/* ================================================================
-              最接近的顏色列表 - 顯示從 Tailwind 調色盤中找到的匹配項
-              使用歐幾里得距離演算法在 OKLCH 色彩空間中計算
-              ================================================================ */}
-          {matches.length > 0 && (
-            <div className="space-y-4">
-              {/* 分割線和標題 */}
-              <div className="flex items-center gap-4">
-                <div className="bg-background-secondary h-px flex-1"></div>
-                <span className="text-text-muted text-xs font-bold tracking-widest uppercase">
-                  Closest Matches
-                </span>
-                <div className="bg-background-secondary h-px flex-1"></div>
-              </div>
-
-              {/* 顏色卡片列表
-                  - 第一個結果（index === 0）用 isClosest=true 突出顯示
-                  - 其餘結果正常顯示，包含偏差指標
-              */}
-              <div className="space-y-3">
-                {matches.map((match, index) => (
-                  <ColorCard key={match.class} color={match} isClosest={index === 0} />
-                ))}
-              </div>
-            </div>
-          )}
+          <DetectedColorSection color={parsedColor} />
+          <ArrowDownIcon />
+          {matches.length > 0 && <ColorMatchList matches={matches} />}
         </div>
       )}
     </div>

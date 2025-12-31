@@ -8,9 +8,7 @@ interface ExactMatchViewProps {
 
 const ExactMatchView = memo<ExactMatchViewProps>(({ match }) => (
   <div className="animate-in fade-in slide-in-from-bottom-4 mx-auto max-w-3xl duration-500">
-    <h2 className="text-text-muted mb-3 text-sm font-semibold tracking-wider uppercase">
-      Exact Match
-    </h2>
+    <h2 className="text-muted mb-3 text-sm font-semibold tracking-wider uppercase">Exact Match</h2>
     <ColorCard color={match} isClosest={true} />
   </div>
 ));

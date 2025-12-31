@@ -8,9 +8,7 @@ interface SuggestionsViewProps {
 
 const SuggestionsView = memo<SuggestionsViewProps>(({ suggestions, onSelect }) => (
   <div className="mx-auto max-w-4xl">
-    <h2 className="text-text-muted mb-3 text-sm font-semibold tracking-wider uppercase">
-      Suggestions
-    </h2>
+    <h2 className="text-muted mb-3 text-sm font-semibold tracking-wider uppercase">Suggestions</h2>
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
       {suggestions.map((s) => (
         <button

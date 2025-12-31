@@ -1,3 +1,21 @@
+/**
+ * @fileoverview
+ * ColorCard 元件 - 顏色詳細資訊卡片
+ *
+ * 責任：
+ * - 展示單一顏色的完整資訊（Hex、RGB、OKLCH）
+ * - 提供一鍵複製功能（複製 Hex、RGB、OKLCH 或 Tailwind Class）
+ * - 視覺化顏色預覽與亮度指標
+ * - 突出顯示「最接近」的匹配顏色（isClosest=true）
+ *
+ * 複製反饋：
+ * - 點擊複製時，按鈕文字切換為 ✓ 並禁用 0.5 秒
+ * - 確保使用者清晰看到複製完成的反饋
+ *
+ * 支援的顏色類型：
+ * - TailwindColor：Tailwind 預設色彩（帶 class 名稱）
+ * - ColorMatch：搜尋結果（可能帶 distance 偏差值）
+ */
 import { useState, useCallback, memo } from 'react';
 import { ColorMatch, TailwindColor } from '@/types';
 import { Clipboard, Check } from 'lucide-react';
@@ -64,7 +82,7 @@ interface CopyButtonProps {
 const CopyButton = memo<CopyButtonProps>(({ text, type, isCopied, onCopy }) => (
   <button
     onClick={() => onCopy(text, type)}
-    className="bg-border text-secondaryText hover:bg-ui flex items-center justify-center gap-2 rounded px-3 py-1.5 text-sm transition-colors"
+    className="bg-border text-muted hover:bg-ui hover:text-primary flex items-center justify-center gap-1 rounded px-3 py-1.5 text-xs transition-colors md:text-sm"
   >
     <span className="font-mono">{text}</span>
     {isCopied ? <Check size={14} className="text-accent-green" /> : <Clipboard size={14} />}
@@ -98,7 +116,7 @@ const FormatDisplay = memo<FormatDisplayProps>(({ text, type, isCopied, onCopy }
     <span className="font-mono text-xs">{text}</span>
     <button
       onClick={() => onCopy(text, type)}
-      className="text-ui hover:text-text-muted transition-colors"
+      className="text-ui hover:text-muted transition-colors"
       title={`Copy ${type?.toUpperCase()}`}
     >
       {isCopied ? <Check size={12} className="text-accent-green" /> : <Clipboard size={12} />}
@@ -173,7 +191,7 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
     <div
       className={`relative flex flex-col items-center gap-4 rounded-xl p-4 transition-all duration-300 md:flex-row ${
         isClosest
-          ? 'bg-background-secondary ring-primary scale-[1.02] shadow-lg ring-2'
+          ? 'bg-background-secondary ring-accent scale-[1.02] shadow-lg ring-2'
           : 'bg-background-secondary/50 hover:bg-background-secondary'
       }`}
     >
@@ -186,36 +204,34 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
           <span
             className={`rounded-full bg-black/20 px-2 py-1 text-xs font-bold text-${textColor}`}
           >
-            Exact-ish
+            Closest
           </span>
         )}
       </div>
 
       {/* 資訊區塊 */}
       <div className="w-full flex-1 text-center md:text-left">
-        {/* 顏色名稱 */}
-        <h3 className="text-primaryText mb-1 text-xl font-bold">{color.class}</h3>
-
-        {/* 複製按鈕（主要） */}
-        <div className="mt-2 flex flex-col gap-3 md:flex-row md:justify-start">
-          <CopyButton
-            text={color.class}
-            type="class"
-            isCopied={copied === 'class'}
-            onCopy={handleCopy}
-          />
-          <CopyButton text={color.hex} type="hex" isCopied={copied === 'hex'} onCopy={handleCopy} />
+        {/* 顏色名稱 + 複製小按鈕 */}
+        <div className="flex items-center justify-center gap-2 md:justify-start">
+          <h3 className="text-primaryText text-xl font-bold">{color.class}</h3>
+          <button
+            onClick={() => handleCopy(color.class, 'class')}
+            className="hover:text-accent transition-colors"
+            title="Copy class name"
+          >
+            {copied === 'class' ? (
+              <Check size={16} className="text-accent" />
+            ) : (
+              <Clipboard size={16} strokeWidth={2} />
+            )}
+          </button>
         </div>
 
-        {/* 格式資訊（RGB 和 OKLCH） */}
-        <div className="text-text-muted mt-2 flex flex-col items-center gap-1 md:flex-row md:items-start md:gap-4">
-          <FormatDisplay
-            text={rgbString}
-            type="rgb"
-            isCopied={copied === 'rgb'}
-            onCopy={handleCopy}
-          />
-          <FormatDisplay
+        {/* 複製按鈕（Hex、RGB、OKLCH） */}
+        <div className="mt-3 flex flex-col gap-2 md:flex-row md:gap-3">
+          <CopyButton text={color.hex} type="hex" isCopied={copied === 'hex'} onCopy={handleCopy} />
+          <CopyButton text={rgbString} type="rgb" isCopied={copied === 'rgb'} onCopy={handleCopy} />
+          <CopyButton
             text={oklchString}
             type="oklch"
             isCopied={copied === 'oklch'}
@@ -227,10 +243,10 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
       {/* 偏差指標（僅在匹配結果中顯示） */}
       {'distance' in color && (
         <div className="hidden text-right md:block">
-          <div className="text-text-muted mb-1 text-xs tracking-wider uppercase">Deviation</div>
+          <div className="text-muted mb-1 text-xs tracking-wider uppercase">Deviation</div>
           <div
             className={`font-mono text-lg font-bold ${
-              (color as ColorMatch).distance < 10 ? 'text-accent-green' : 'text-yellow-400'
+              (color as ColorMatch).distance < 10 ? 'text-accent-green' : 'text-accent'
             }`}
           >
             {(color as ColorMatch).distance.toFixed(2)}

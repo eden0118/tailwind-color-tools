@@ -11,7 +11,7 @@ const PaletteView = memo<PaletteViewProps>(({ colorGroups, onSelectColor }) => (
   <div className="animate-in fade-in duration-700">
     <div className="mb-6 flex items-center gap-4">
       <div className="bg-background-secondary h-px flex-1"></div>
-      <span className="text-text-muted text-sm font-medium tracking-widest uppercase">
+      <span className="text-muted text-sm font-medium tracking-widest uppercase">
         Full Tailwind Palette
       </span>
       <div className="bg-background-secondary h-px flex-1"></div>

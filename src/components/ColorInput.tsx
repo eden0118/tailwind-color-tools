@@ -1,3 +1,19 @@
+/**
+ * @fileoverview
+ * ColorInput 元件 - 多格式顏色輸入框
+ *
+ * 責任：
+ * - 提供單一輸入欄供三種色彩格式（Hex、RGB、OKLCH）使用
+ * - 視覺反饋：強調色環圓、Placeholder 提示、標籤識別
+ * - 支援不同的「強調色」（hex、rgb、oklch），視覺上區分三個輸入框
+ * - 處理使用者輸入並觸發父元件的 onChange 回調
+ *
+ * 設計特色：
+ * - 左側圓形色卡顯示解析後的顏色預覽（若格式有效）
+ * - 右側標籤清晰標示輸入格式類型
+ * - 焦點時環形變換顏色，提供視覺反饋
+ * - 虛擬框架指導使用者輸入格式
+ */
 import { memo, useState, useRef } from 'react';
 import { Info } from 'lucide-react';
 
@@ -66,7 +82,7 @@ const accentMap = {
  * Reusable color input field component
  */
 const ColorInput = memo<ColorInputProps>(
-  ({ label, value, onChange, placeholder, accentColor, icon, helpText }) => {
+  ({ label, value, onChange, placeholder, accentColor, helpText }) => {
     const [isTooltipVisible, setTooltipVisible] = useState(false);
     const showTimeoutRef = useRef<number | null>(null);
     const hideTimeoutRef = useRef<number | null>(null);
@@ -102,7 +118,7 @@ const ColorInput = memo<ColorInputProps>(
           <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <button
               type="button"
-              className="text-text-muted hover:text-secondaryText cursor-pointer transition-colors"
+              className="text-muted hover:text-secondaryText cursor-pointer transition-colors"
               aria-label="Color format info"
             >
               <Info size={14} />

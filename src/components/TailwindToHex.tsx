@@ -1,3 +1,35 @@
+/**
+ * @fileoverview
+ * TailwindToHex 頁面元件
+ *
+ * 主要責任：
+ * 1. 搜尋 Tailwind 色彩類別名（如 blue-500、red-600）
+ * 2. 展示精確匹配、模糊建議、或完整調色盤
+ * 3. 提供快速查找與顏色預覽功能
+ *
+ * 三種視圖模式：
+ * 1. 精確匹配 (ExactMatchView) - 搜尋完全相符時顯示
+ * 2. 建議清單 (SuggestionsView) - 無精確匹配但有相關顏色時顯示
+ * 3. 調色盤 (PaletteView) - 無搜尋時顯示完整 Tailwind 調色盤
+ * 4. 無結果 (NoResultsView) - 搜尋無任何結果時顯示
+ *
+ * 特色功能：
+ * - 自動前綴移除：支援 bg-、text-、border-、ring- 前綴自動去除
+ * - 色系分組：調色盤按顏色家族（slate、red、blue 等）組織
+ * - 色號懸停：6 列網格中，懸停時顯示色號（50、100、200 等）
+ * - 實時搜尋：輸入時立即更新建議
+ *
+ * 效能最佳化：
+ * - useMemo：色組在初始化時計算一次
+ * - memo()：所有子元件都已包裝，避免不必要重繪
+ * - useCallback：回調函數穩定，避免破壞依賴陣列
+ *
+ * 組件拆分優勢：
+ * - SearchInput：統一搜尋欄，支援清除功能
+ * - ExactMatchView / SuggestionsView / NoResultsView：各司其職
+ * - PaletteView + ColorFamily：調色盤展示與色系細節
+ * - 易於擴展：新增搜尋功能或過濾不需修改主邏輯
+ */
 import { useState, useEffect, useMemo, memo, useCallback } from 'react';
 import { findHexByClass, ALL_TAILWIND_COLORS } from '@/utils/colorUtils';
 import { TailwindColor } from '@/types';
@@ -119,7 +151,6 @@ const TailwindToHex = memo(() => {
 });
 
 TailwindToHex.displayName = 'TailwindToHex';
-
 
 // ============================================================================
 // Utility Functions - 工具函數
