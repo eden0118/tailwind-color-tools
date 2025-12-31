@@ -60,8 +60,7 @@ const HexToTailwind = memo(() => {
           value={hexInput}
           onChange={setHexInput}
           placeholder="#3b82f6"
-          accentColor="indigo"
-          icon="#"
+          accentColor="hex"
         />
 
         {/* RGB 輸入 - 供參考和調整 */}
@@ -70,7 +69,7 @@ const HexToTailwind = memo(() => {
           value={rgbInput}
           onChange={setRgbInput}
           placeholder="59, 130, 246"
-          accentColor="pink"
+          accentColor="rgb"
         />
 
         {/* OKLCH 輸入 - 感知均勻色彩空間 */}
@@ -79,19 +78,19 @@ const HexToTailwind = memo(() => {
           value={oklchInput}
           onChange={setOklchInput}
           placeholder="oklch(0.6 0.2 250)"
-          accentColor="green"
+          accentColor="oklch"
         />
       </div>
 
       {/* ====================================================================
           色彩預覽 - 圓形預覽框，即時反映使用者輸入的顏色
           ==================================================================== */}
-      <div className="-mt-4 mb-4 flex justify-center">
+      {/* <div className="my-4 p-4 flex justify-center">
         <div
-          className="h-16 w-16 rounded-full border-4 border-background-secondary shadow-lg transition-colors duration-300"
+          className="h-16 w-16 rounded-full border-4 border-gray-300 shadow-lg transition-colors duration-300"
           style={{ backgroundColor: parsedColor?.hex || 'transparent' }}
         />
-      </div>
+      </div> */}
 
       {/* Results Section */}
       {parsedColor && (
@@ -100,11 +99,11 @@ const HexToTailwind = memo(() => {
               分割線和標題 - 區隔檢測到的顏色區塊
               ================================================================ */}
           <div className="flex items-center gap-4">
-            <div className="h-px flex-1 bg-background-secondary"></div>
-            <span className="text-xs font-bold tracking-widest text-text-muted uppercase">
+            <div className="h-px flex-1 bg-gray-300"></div>
+            <span className="text-text-muted text-xs font-bold tracking-widest uppercase">
               Detected Color
             </span>
-            <div className="h-px flex-1 bg-background-secondary"></div>
+            <div className="h-px flex-1 bg-gray-300"></div>
           </div>
 
           {/* ================================================================
@@ -116,7 +115,7 @@ const HexToTailwind = memo(() => {
           {/* ================================================================
               箭頭動畫 - 從輸入到結果的視覺引導
               ================================================================ */}
-          <div className="flex justify-center text-ui">
+          <div className="text-ui flex justify-center">
             <ArrowDown size={24} className="animate-bounce" />
           </div>
 
@@ -128,11 +127,11 @@ const HexToTailwind = memo(() => {
             <div className="space-y-4">
               {/* 分割線和標題 */}
               <div className="flex items-center gap-4">
-                <div className="h-px flex-1 bg-background-secondary"></div>
-                <span className="text-xs font-bold tracking-widest text-text-muted uppercase">
+                <div className="bg-background-secondary h-px flex-1"></div>
+                <span className="text-text-muted text-xs font-bold tracking-widest uppercase">
                   Closest Matches
                 </span>
-                <div className="h-px flex-1 bg-background-secondary"></div>
+                <div className="bg-background-secondary h-px flex-1"></div>
               </div>
 
               {/* 顏色卡片列表

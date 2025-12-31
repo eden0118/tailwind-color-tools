@@ -1,44 +1,56 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-background: #0f172a; /* slate-900 */
 
-:root {
-  --color-bg-primary: #0f172a; /* slate-900 */
-  --color-bg-secondary: #1e293b; /* slate-800 */
-  --color-border-default: #334155; /* slate-700 */
-
-  --color-ui-default: #475569; /* slate-600 */
-  --color-ui-hover: #64748b; /* slate-500 */
-
-  --color-text-primary: #f8fafc; /* slate-50 */
-  --color-text-secondary: #cbd5e1; /* slate-300 */
+  --color-primaryText: #f8fafc; /* slate-50 */
+  --color-secondaryText: #cbd5e1; /* slate-300 */
   --color-text-muted: #94a3b8; /* slate-400 */
   --color-text-muted-hover: #e2e8f0; /* slate-200 */
 
-  --color-accent-indigo: #818cf8; /* indigo-400 */
-  --color-accent-indigo-focus: #6366f1; /* indigo-500 */
-  --color-accent-pink: #f472b6; /* pink-400 */
-  --color-accent-green: #4ade80; /* green-400 */
+  --color-primary: #60a5fa; /* indigo-400 */
+  --color-secondary: #1e293b; /* slate-800 */
+
+  --color-hex-accent: #f6c252;
+  --color-rgb-accent: #f472b6;
+  --color-oklch-accent: #4ade80;
 }
 
-body {
-  @apply bg-background-primary text-text-primary;
+@layer base {
+  body {
+    @apply bg-background text-primaryText;
+  }
+
+  button {
+    @apply cursor-pointer transition-all;
+  }
+  /* Custom scrollbar for better aesthetics */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-secondary;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-ui-default);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-ui-hover);
+  }
 }
 
-/* Custom scrollbar for better aesthetics */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+@layer components {
+.input {
+  /* need to add focus ring color */
+  @apply text-primaryText w-full rounded-lg border px-4 py-3 font-mono transition-all focus:border-none focus:ring-2 focus:outline-none;
 }
-
-::-webkit-scrollbar-track {
-  background: var(--color-bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-ui-default);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-ui-hover);
+  .input-label {
+    /* need to add text color */
+    @apply text-xs font-bold tracking-wider uppercase;
+  }
 }
