@@ -57,14 +57,14 @@ export const useColorInput = (defaultColor: string = DEFAULT_COLOR): UseColorInp
   };
 
   // 2. 使用 Lazy Initialization 設定初始值
-  const [state, setState] = useState(() => getInitialState(defaultColor));
+  const initialState = getInitialState(defaultColor);
 
   // 我們將 inputs 分離出來以便獨立控制 (因為使用者輸入時可能是無效字串，不能一直同步 state)
-  const [hexInput, setHexInputState] = useState(state.hex);
-  const [rgbInput, setRgbInputState] = useState(state.rgb);
-  const [oklchInput, setOklchInputState] = useState(state.oklch);
-  const [parsedColor, setParsedColor] = useState<TailwindColor | null>(state.parsed);
-  const [matches, setMatches] = useState<ColorMatch[]>(state.matches);
+  const [hexInput, setHexInputState] = useState(initialState.hex);
+  const [rgbInput, setRgbInputState] = useState(initialState.rgb);
+  const [oklchInput, setOklchInputState] = useState(initialState.oklch);
+  const [parsedColor, setParsedColor] = useState<TailwindColor | null>(initialState.parsed);
+  const [matches, setMatches] = useState<ColorMatch[]>(initialState.matches);
 
   // 3. 核心更新邏輯：當解析出有效 RGB 時，更新所有衍生的“有效”狀態
   // 注意：這裡只更新「計算後的值」，不直接覆寫使用者的輸入框，除非是跨格式同步
