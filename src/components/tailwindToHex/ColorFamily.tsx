@@ -8,7 +8,7 @@ interface ColorFamilyProps {
 }
 
 const ColorFamily = memo<ColorFamilyProps>(({ name, colors, onSelectColor }) => (
-  <div className="border-background-secondary/50 bg-background-secondary/30 hover:border-border rounded-xl border p-4 transition-colors">
+  <div className="hover:border-border rounded-xl border border-slate-500 bg-gray-900 p-4 transition-colors">
     <h3 className="text-secondaryText mb-3 font-bold capitalize">{name}</h3>
     <div className="grid grid-cols-6 gap-2">
       {colors.map((c) => {
@@ -24,7 +24,7 @@ const ColorFamily = memo<ColorFamilyProps>(({ name, colors, onSelectColor }) => 
           >
             <span
               className={`text-[10px] font-bold opacity-0 transition-opacity group-hover:opacity-100 ${
-                isLight ? 'text-background-primary' : 'text-primaryText'
+                isLight ? 'text-gray-900' : 'text-primaryText'
               }`}
             >
               {shade}

@@ -27,31 +27,27 @@
   }
   /* Custom scrollbar for better aesthetics */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    @apply h-2 w-2;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-secondary;
+    @apply bg-background;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-ui-default);
-    border-radius: 4px;
+    @apply bg-primary/20 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-ui-hover);
+    @apply bg-background;
   }
 }
 
 @layer components {
   .input {
-    /* need to add focus ring color */
-    @apply text-primaryText w-full rounded-lg border px-4 py-3 font-mono transition-all focus:border-none focus:ring-2 focus:outline-none;
+    @apply text-primaryText w-full rounded-lg border px-4 py-3 font-mono transition-all placeholder:text-slate-500 focus:border-none focus:ring-2 focus:outline-none;
   }
   .input-label {
-    /* need to add text color */
     @apply text-xs font-bold tracking-wider uppercase;
   }
 }

@@ -287,6 +287,6 @@ export const COLORS: Record<string, string> = {
  * @constant DEFAULT_COLOR
  * 應用程式的預設初始顏色。
  * 用於 `useColorInput` hook，確保應用程式在首次加載時有一個合理的起始狀態。
- * 這個值對應 Tailwind 的 'blue-500'。
+ * 這個值對應 Tailwind 的 'red-500'。
  */
-export const DEFAULT_COLOR = '#3b82f6';
+export const DEFAULT_COLOR = '#3cc766';
