@@ -7,6 +7,7 @@
  * - 提供視覺流程：輸入 → 檢測 → 匹配結果
  */
 import { memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useColorInput } from '@/hooks/useColorInput';
 import DetectedColorSection from './hexToTailwind/DetectedColorSection';
 import ColorMatchList from './hexToTailwind/ColorMatchList';
@@ -19,6 +20,7 @@ import { DEFAULT_COLOR } from '@/constants';
 // ============================================================================
 
 const HexToTailwind = memo(() => {
+  const { t } = useTranslation();
   const {
     hexInput,
     rgbInput,
@@ -37,26 +39,26 @@ const HexToTailwind = memo(() => {
           ==================================================================== */}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <ColorInput
-          label="HEX Code"
+          label={t('hexToTailwind.label.hex')}
           value={hexInput}
           onChange={setHexInput}
-          placeholder="#3cc766"
+          placeholder={t('hexToTailwind.placeholder.hex')}
           accentColor="hex"
         />
 
         <ColorInput
-          label="RGB Values"
+          label={t('hexToTailwind.label.rgb')}
           value={rgbInput}
           onChange={setRgbInput}
-          placeholder="60, 199, 102"
+          placeholder={t('hexToTailwind.placeholder.rgb')}
           accentColor="rgb"
         />
 
         <ColorInput
-          label="OKLCH"
+          label={t('hexToTailwind.label.oklch')}
           value={oklchInput}
           onChange={setOklchInput}
-          placeholder="oklch(73.40% 0.181 149.31)"
+          placeholder={t('hexToTailwind.placeholder.oklch')}
           accentColor="oklch"
         />
       </div>

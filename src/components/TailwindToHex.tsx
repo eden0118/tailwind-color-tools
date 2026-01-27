@@ -31,7 +31,7 @@
  * - 易於擴展：新增搜尋功能或過濾不需修改主邏輯
  */
 import { useState, useEffect, useMemo, memo, useCallback } from 'react';
-import { findHexByClass, ALL_TAILWIND_COLORS } from '@/utils/colorUtils';
+import { findHexByClass, ALL_TAILWIND_COLORS, buildColorGroups } from '@/utils/colorUtils';
 import { TailwindColor } from '@/types';
 import SearchInput from './tailwindToHex/SearchInput';
 import ExactMatchView from './tailwindToHex/ExactMatchView';
@@ -147,48 +147,5 @@ const TailwindToHex = memo(() => {
 });
 
 TailwindToHex.displayName = 'TailwindToHex';
-
-// ============================================================================
-// Utility Functions - 工具函數
-// ============================================================================
-
-/**
- * buildColorGroups - 按顏色家族組織所有 Tailwind 顏色
- *
- * 算法：
- * 1. 遍歷所有 Tailwind 顏色
- * 2. 根據顏色類別名中的首個部分（如 'blue' 在 'blue-500'）分組
- * 3. 返回一個物件，鍵為家族名稱，值為該家族的所有顏色陣列
- *
- * 範例輸出：
- * {
- *   'slate': [slate-50, slate-100, ...],
- *   'red': [red-50, red-100, ...],
- *   'blue': [blue-50, blue-100, ...]
- * }
- *
- * 此函數被 useMemo 包裹，因此只在元件初始化時執行一次。
- *
- * @returns 按家族組織的顏色物件
- */
-function buildColorGroups(): Record<string, TailwindColor[]> {
-  const groups: Record<string, TailwindColor[]> = {};
-
-  ALL_TAILWIND_COLORS.forEach((color) => {
-    // 將顏色類別分割為部分（如 'blue-500' → ['blue', '500']）
-    const parts = color.class.split('-');
-    // 取第一部分作為家族名稱，如果只有一部分則用 'other'
-    const base = parts.length > 1 ? parts[0] : 'other';
-
-    // 初始化家族陣列（如果還不存在）
-    if (!groups[base]) {
-      groups[base] = [];
-    }
-    // 新增顏色到家族
-    groups[base].push(color);
-  });
-
-  return groups;
-}
 
 export default TailwindToHex;

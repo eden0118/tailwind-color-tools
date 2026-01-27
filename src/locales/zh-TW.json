@@ -1,0 +1,46 @@
+{
+  "app": {
+    "title": "色彩轉換器",
+    "description": "強大的色彩轉換工具，支援 Hex, RGB, OKLCH 與 Tailwind CSS 顏色互轉"
+  },
+  "mode": {
+    "codeToClass": "代碼轉類別",
+    "classToCode": "類別轉代碼"
+  },
+  "footer": {
+    "rights": "版權所有",
+    "builtWith": "使用 Vite • React • TypeScript • Tailwind CSS 構建"
+  },
+  "hexToTailwind": {
+    "label": {
+      "hex": "HEX 代碼",
+      "rgb": "RGB 數值",
+      "oklch": "OKLCH"
+    },
+    "placeholder": {
+      "hex": "#3cc766",
+      "rgb": "60, 199, 102",
+      "oklch": "oklch(73.40% 0.181 149.31)"
+    }
+  },
+  "tailwindToHex": {
+    "searchLabel": "輸入 Tailwind 類別",
+    "searchPlaceholder": "搜尋顏色 (例如 blue-500, red)...",
+    "noResults": "找不到符合的顏色：",
+    "palette": "Tailwind 調色盤"
+  },
+  "common": {
+    "detectedColor": "偵測顏色",
+    "closest": "最接近",
+    "deviation": "偏差值",
+    "copy": "複製 {{type}}",
+    "copied": "已複製",
+    "clear": "清除",
+    "close": "關閉"
+  },
+  "tooltips": {
+    "hex": "十六進位顏色格式\n\n格式: #RRGGBB\n\n組成:\n  R: 紅 (00–FF)\n  G: 綠 (00–FF)\n  B: 藍 (00–FF)\n\n範例: #3b82f6",
+    "rgb": "RGB 顏色格式\n\n格式: rgb(R, G, B)\n\n組成:\n  R: 紅 (0–255)\n  G: 綠 (0–255)\n  B: 藍 (0–255)\n\n範例: rgb(59, 130, 246)",
+    "oklch": "感知均勻色彩空間\n\n格式: oklch(L, C, H)\n\n組成:\n  L: 亮度 (0–1)\n  C: 彩度 (0–0.4)\n  H: 色相 (0°–360°)\n\n最符合人類視覺感知。"
+  }
+}

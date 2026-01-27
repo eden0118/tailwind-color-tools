@@ -1,0 +1,46 @@
+{
+  "app": {
+    "title": "Color Converter",
+    "description": "A powerful tool for converting between Hex, RGB, OKLCH and Tailwind CSS colors"
+  },
+  "mode": {
+    "codeToClass": "Code to Class",
+    "classToCode": "Class to Code"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with Vite • React • TypeScript • Tailwind CSS"
+  },
+  "hexToTailwind": {
+    "label": {
+      "hex": "HEX Code",
+      "rgb": "RGB Values",
+      "oklch": "OKLCH"
+    },
+    "placeholder": {
+      "hex": "#3cc766",
+      "rgb": "60, 199, 102",
+      "oklch": "oklch(73.40% 0.181 149.31)"
+    }
+  },
+  "tailwindToHex": {
+    "searchLabel": "Enter Tailwind Class",
+    "searchPlaceholder": "Search colors (e.g. blue-500, red)...",
+    "noResults": "No matching colors found for",
+    "palette": "Tailwind Palette"
+  },
+  "common": {
+    "detectedColor": "Detected Color",
+    "closest": "Closest",
+    "deviation": "Deviation",
+    "copy": "Copy {{type}}",
+    "copied": "Copied",
+    "clear": "Clear",
+    "close": "Close"
+  },
+  "tooltips": {
+    "hex": "Hexadecimal Color Format\n\nFormat: #RRGGBB\n\nComponents:\n  R: Red (00–FF)\n  G: Green (00–FF)\n  B: Blue (00–FF)\n\nExample: #3b82f6",
+    "rgb": "RGB Color Format\n\nFormat: rgb(R, G, B)\n\nComponents:\n  R: Red (0–255)\n  G: Green (0–255)\n  B: Blue (0–255)\n\nExample: rgb(59, 130, 246)",
+    "oklch": "Perceptually Uniform Color Space\n\nFormat: oklch(L, C, H)\n\nComponents:\n  L: Lightness (0–1)\n  C: Chroma (0–0.4, higher = more saturated)\n  H: Hue (0°–360°)\n\nBest for human-aligned color perception."
+  }
+}

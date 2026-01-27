@@ -17,6 +17,7 @@
  * - ColorMatch：搜尋結果（可能帶 distance 偏差值）
  */
 import { useState, useCallback, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ColorMatch, TailwindColor } from '@/types';
 import { Clipboard, Check } from 'lucide-react';
 import { rgbToOklch } from '@/utils/colorUtils';
@@ -79,16 +80,19 @@ interface CopyButtonProps {
   onCopy: (text: string, type: CopyType) => void;
 }
 
-const CopyButton = memo<CopyButtonProps>(({ text, type, isCopied, onCopy }) => (
-  <button
-    onClick={() => onCopy(text, type)}
-    className="text-muted hover:text-primary flex items-center justify-center gap-1.5 rounded p-1 text-xs transition-colors md:text-sm"
-    aria-label={isCopied ? 'Copied' : `Copy ${text}`}
-  >
-    <span className="min-w-max font-mono">{text}</span>
-    {isCopied ? <Check size={14} className="text-accent animate-pop" /> : <Clipboard size={14} />}
-  </button>
-));
+const CopyButton = memo<CopyButtonProps>(({ text, type, isCopied, onCopy }) => {
+  const { t } = useTranslation();
+  return (
+    <button
+      onClick={() => onCopy(text, type)}
+      className="text-muted hover:text-primary flex items-center justify-center gap-1.5 rounded p-1 text-xs transition-colors md:text-sm"
+      aria-label={isCopied ? t('common.copied') : t('common.copy', { type: text })}
+    >
+      <span className="min-w-max font-mono">{text}</span>
+      {isCopied ? <Check size={14} className="text-accent animate-pop" /> : <Clipboard size={14} />}
+    </button>
+  );
+});
 
 CopyButton.displayName = 'CopyButton';
 
@@ -112,23 +116,30 @@ interface FormatDisplayProps {
   onCopy: (text: string, type: CopyType) => void;
 }
 
-const FormatDisplay = memo<FormatDisplayProps>(({ text, type, isCopied, onCopy }) => (
-  <div className="flex items-center gap-2">
-    <span className="font-mono text-xs">{text}</span>
-    <button
-      onClick={() => onCopy(text, type)}
-      className="text-ui hover:text-muted transition-colors"
-      title={`Copy ${type?.toUpperCase()}`}
-      aria-label={isCopied ? 'Copied' : `Copy ${type?.toUpperCase()} value`}
-    >
-      {isCopied ? (
-        <Check size={12} className="text-accent-green animate-pop" />
-      ) : (
-        <Clipboard size={12} />
-      )}
-    </button>
-  </div>
-));
+const FormatDisplay = memo<FormatDisplayProps>(({ text, type, isCopied, onCopy }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="flex items-center gap-2">
+      <span className="font-mono text-xs">{text}</span>
+      <button
+        onClick={() => onCopy(text, type)}
+        className="text-ui hover:text-muted transition-colors"
+        title={t('common.copy', { type: type?.toUpperCase() })}
+        aria-label={
+          isCopied
+            ? t('common.copied')
+            : t('common.copy', { type: `${type?.toUpperCase()} value` })
+        }
+      >
+        {isCopied ? (
+          <Check size={12} className="text-accent-green animate-pop" />
+        ) : (
+          <Clipboard size={12} />
+        )}
+      </button>
+    </div>
+  );
+});
 
 FormatDisplay.displayName = 'FormatDisplay';
 
@@ -156,6 +167,7 @@ FormatDisplay.displayName = 'FormatDisplay';
  * - 支援 Hex、RGB、OKLCH 三種格式的複製
  */
 const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
+  const { t } = useTranslation();
   // ========================================================================
   // State Management
   // ========================================================================
@@ -212,7 +224,7 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
           <span
             className={`rounded-full bg-black/20 px-2 py-1 text-[10px] font-bold md:text-xs text-${textColor}`}
           >
-            Closest
+            {t('common.closest')}
           </span>
         )}
       </div>
@@ -225,8 +237,12 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
           <button
             onClick={() => handleCopy(color.class, 'class')}
             className="hover:text-accent transition-colors"
-            title="Copy class name"
-            aria-label={copied === 'class' ? 'Copied class name' : `Copy class name ${color.class}`}
+            title={t('common.copy', { type: 'class name' })}
+            aria-label={
+              copied === 'class'
+                ? t('common.copied')
+                : t('common.copy', { type: `class name ${color.class}` })
+            }
           >
             {copied === 'class' ? (
               <Check size={16} className="text-accent" />
@@ -252,7 +268,9 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
       {/* 偏差指標（僅在匹配結果中顯示） */}
       {'distance' in color && (
         <div className="hidden text-right md:block">
-          <div className="text-muted mb-1 text-xs tracking-wider uppercase">Deviation</div>
+          <div className="text-muted mb-1 text-xs tracking-wider uppercase">
+            {t('common.deviation')}
+          </div>
           <div
             className={`font-mono text-lg font-bold ${
               (color as ColorMatch).distance < 10 ? 'text-accent-green' : 'text-accent'

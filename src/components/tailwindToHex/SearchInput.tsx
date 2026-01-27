@@ -10,6 +10,7 @@
  */
 import { memo, useId } from 'react';
 import { Search, X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface SearchInputProps {
   value: string;
@@ -18,6 +19,7 @@ interface SearchInputProps {
 }
 
 const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => {
+  const { t } = useTranslation();
   // Unique ID for label-input association (accessibility)
   const inputId = useId();
 
@@ -25,7 +27,7 @@ const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => {
     <div className="mx-auto max-w-3xl space-y-2">
       {/* Accessible label for search input */}
       <label htmlFor={inputId} className="input-label text-muted">
-        Enter Tailwind Class
+        {t('tailwindToHex.searchLabel')}
       </label>
       <div className="relative mt-1.5">
         {/* Search icon - decorative, hidden from screen readers */}
@@ -40,7 +42,7 @@ const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => {
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="e.g. blue-500, red-600..."
+          placeholder={t('tailwindToHex.searchPlaceholder')}
           className="input focus:ring-accent pl-12"
         />
         {/* Clear button - shown when input has value */}
@@ -48,8 +50,8 @@ const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => {
           <button
             onClick={onClear}
             className="text-muted hover:bg-border/50 hover:text-accent absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 transition-colors"
-            title="Clear input"
-            aria-label="Clear search"
+            title={t('common.clear')}
+            aria-label={t('common.clear')}
           >
             <X size={18} />
           </button>

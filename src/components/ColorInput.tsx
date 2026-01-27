@@ -14,7 +14,8 @@
  * - 焦點時環形變換顏色，提供視覺反饋
  * - 虛擬框架指導使用者輸入格式
  */
-import { memo, useState, useRef, useId } from 'react';
+import { memo, useState, useId } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Info } from 'lucide-react';
 
 interface ColorInputProps {
@@ -25,64 +26,6 @@ interface ColorInputProps {
   accentColor: 'hex' | 'rgb' | 'oklch';
   helpText?: string;
 }
-
-/**
- * 色碼格式說明 - 各種格式的參數意義
- */
-const FORMAT_TOOLTIPS = {
-  'HEX Code': `Hexadecimal Color Format
-
-Format: #RRGGBB
-
-Components:
-  R: Red (00–FF)
-  G: Green (00–FF)
-  B: Blue (00–FF)
-
-Example: #3b82f6`,
-
-  'RGB Values': `RGB Color Format
-
-Format: rgb(R, G, B)
-
-Components:
-  R: Red (0–255)
-  G: Green (0–255)
-  B: Blue (0–255)
-
-Example: rgb(59, 130, 246)`,
-
-  OKLCH: `Perceptually Uniform Color Space
-
-Format: oklch(L, C, H)
-
-Components:
-  L: Lightness (0–1)
-  C: Chroma (0–0.4, higher = more saturated)
-  H: Hue (0°–360°)
-
-Best for human-aligned color perception.`,
-
-  Hex: `Hexadecimal Color Format
-
-Format: #RGB or #RRGGBB
-
-Components:
-  Each channel: 00–FF (0–255)
-
-Short form expands automatically.`,
-
-  RGB: `RGB Color Format
-
-Format: rgb(R, G, B)
-
-Components:
-  R: Red (0–255)
-  G: Green (0–255)
-  B: Blue (0–255)
-
-Standard screen representation.`,
-};
 
 const accentMap = {
   hex: {
@@ -104,11 +47,12 @@ const accentMap = {
  */
 const ColorInput = memo<ColorInputProps>(
   ({ label, value, onChange, placeholder, accentColor, helpText }) => {
+    const { t } = useTranslation();
     const inputId = useId();
     const [isExpanded, setIsExpanded] = useState(false);
 
     const accentStyles = accentMap[accentColor];
-    const tooltipText = helpText || FORMAT_TOOLTIPS[label as keyof typeof FORMAT_TOOLTIPS] || '';
+    const tooltipText = helpText || t(`tooltips.${accentColor}`);
 
     // Click: Toggle expanded description
     const handleInfoClick = () => {
@@ -153,9 +97,9 @@ const ColorInput = memo<ColorInputProps>(
               onClick={() => setIsExpanded(false)}
               className="text-primary hover:text-accent w-full shrink-0 bg-black/30 py-1 uppercase transition-all hover:bg-black/90"
               aria-label="Close description"
-              title="Close"
+              title={t('common.close')}
             >
-              Close
+              {t('common.close')}
             </button>
           </div>
         )}
