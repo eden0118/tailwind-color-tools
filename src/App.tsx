@@ -51,10 +51,9 @@ const Header = memo(() => {
         <div className="flex items-center justify-between">
           {/* App logo and title */}
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-yellow-500 to-orange-500 shadow-lg shadow-indigo-500/20">
-              <Palette size={18} className="text-white" />
-            </div>
-            <h1 className="hidden text-xl font-bold tracking-tight text-white sm:block">
+            <Palette size={20} />
+
+            <h1 className="text-lg font-bold tracking-tight text-white md:text-xl">
               {t('app.title')}
             </h1>
           </div>

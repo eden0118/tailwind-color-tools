@@ -1,34 +1,43 @@
-# Color Converter
+# Tailwind Color Tools
 
-A modern, high-performance Tailwind CSS color conversion tool that enables developers to seamlessly convert colors between Hex, RGB, OKLCH, and Tailwind color classes.
+A modern, high-performance color conversion tool for Tailwind CSS developers. Convert seamlessly between Hex, RGB, OKLCH, and Tailwind color classes with real-time visual feedback.
 
-[English](./README.md) | [中文](./README.zh.md)
+[English](./README.md) | [繁體中文](./README.zh.md)
 
-## Features
+## ✨ Features
 
-- **Code to Class** - Input any color code (Hex, RGB, OKLCH) and automatically find the closest Tailwind color class
-- **Class to Code** - Browse the complete Tailwind color palette and quickly lookup corresponding color values
-- **Real-time Synchronization** - Three color formats synchronize in real-time as you type
-- **Precise Matching** - Uses Euclidean distance algorithm in RGB color space to find the closest match
-- **Responsive Design** - Perfect support for desktop, tablet, and mobile devices
-- **Mode Switching** - Easy toggle between conversion modes with icon-based navigation
+- **🎨 Bidirectional Conversion**
+  - Code to Class: Convert Hex/RGB/OKLCH to Tailwind color classes
+  - Class to Code: Lookup color values from Tailwind class names
 
-## Accessibility & SEO
+- **⚡ Real-time Sync** - All three color formats (Hex, RGB, OKLCH) update instantly as you type
 
-- **Screen Reader Friendly** - Semantic HTML and ARIA labels ensure a good experience for screen reader users.
-- **Keyboard Navigation** - Full support for keyboard interaction across all inputs and buttons.
-- **SEO Optimized** - Enhanced meta tags, structured data (JSON-LD), and canonical links for better search engine visibility.
+- **🎯 Precise Matching** - Euclidean distance algorithm finds the closest Tailwind colors in RGB space
 
-## Technology Stack
+- **📱 Responsive Design** - Optimized for desktop, tablet, and mobile with collapsible mobile menu
 
-- **React 19** - Modern UI framework
-- **TypeScript** - Type-safe development experience
-- **Vite 6** - Lightning-fast development server
-- **Tailwind CSS v4** - Utility-first CSS framework
-- **Lucide React** - Lightweight SVG icon library
-- **Prettier** - Automatic code formatting
+- **🌐 i18n Support** - English and Traditional Chinese with language switcher
 
-## Quick Start
+- **♿ Accessibility** - ARIA labels, keyboard navigation, and screen reader support
+
+- **🚀 Performance** - < 2ms query time with memoized components and pre-computed palette
+
+## 🛠️ Technology Stack
+
+- **React 19** - Latest UI framework with improved performance
+- **TypeScript** - Full type safety across the codebase
+- **Vite 6** - Next-generation build tool with HMR
+- **Tailwind CSS v4** - Utility-first CSS framework with modern features
+- **React Router v7** - Client-side routing
+- **i18next** - Internationalization framework
+- **Lucide React** - Beautiful & consistent icon set
+- \*🚀 Quick Start
+
+````bash
+# Clone the repository
+git clone https://github.com/yourusername/tailwind-color-tools.git
+cd tailwind-color-tools
+k Start
 
 ```bash
 # Install dependencies
@@ -43,57 +52,43 @@ npm run build
 # Preview production build
 npm run preview
 
-# Format code
-npm run format
-```
+# F📁 Project Structure
 
-## Project Structure
+````
 
-```
 src/
 ├── components/
-│   ├── App.tsx                      # Main application with mode switching
-│   ├── ColorCard.tsx                # Color information display
-│   ├── ColorInput.tsx               # Multi-format color input
-│   ├── HexToTailwind.tsx            # Code to Class conversion
-│   ├── TailwindToHex.tsx            # Class to Code lookup
-│   ├── Footer.tsx                   # Footer section
-│   ├── hexToTailwind/
-│   │   ├── ColorMatchList.tsx       # List of matching colors
-│   │   ├── DetectedColorSection.tsx # Detected color display
-│   │   ├── SectionDivider.tsx       # Visual separator
-│   │   └── ArrowDownIcon.tsx        # Arrow icon
-│   └── tailwindToHex/
-│       ├── ColorFamily.tsx          # Color family group
-│       ├── ExactMatchView.tsx       # Exact color match display
-│       ├── NoResultsView.tsx        # No results message
-│       ├── PaletteView.tsx          # Full palette view
-│       ├── SearchInput.tsx          # Search functionality
-│       └── SuggestionsView.tsx      # Color suggestions
+│ ├── HexToTailwind.tsx # Code to Class mode
+│ ├── TailwindToHex.tsx # Class to Code mode
+│ ├── ColorCard.tsx # Color preview card
+│ ├── ColorInput.tsx # Multi-format input
+│ ├── Footer.tsx # App footer
+│ ├── hexToTailwind/ # Code to Class subcomponents
+│ │ ├── ArrowDownIcon.tsx
+│ │ ├── ColorMatchList.tsx
+│ │ ├── DetectedColorSection.tsx
+│ │ └── SectionDivider.tsx
+│ └── tailwindToHex/ # Class to Code subcomponents
+│ ├── ColorFamily.tsx
+│ ├── ExactMatchView.tsx
+│ ├── NoResultsView.tsx
+│ ├── PaletteView.tsx
+│ ├── SearchInput.tsx
+│ └── SuggestionsView.tsx
 ├── hooks/
-│   ├── index.ts
-│   Code to Class (Hex to Tailwind)
+│ └── useColorInput.ts # Color input logic
+├── utils/
+│ └── colorUtils.ts # Color conversion & matching
+├── constants/
+│ └── colors.ts # Tailwind palette data
+├── locales/
+│ ├── en.json # English translations
+│ └── zh-TW.json # Traditional Chinese
+├── App.tsx # Root component with routing
+├── i18n.ts # i18n configuration
+└── main.tsx # App entry point
 
-1. Input any color format (Hex, RGB, OKLCH)
-2. Real-time display of equivalent values in other formats
-3. Automatically calculate and display the closest Tailwind colors
-4. One-click copy for color codes and class names
-
-### Class to Code (Tailwind to Hex)
-
-1. Search Tailwind color classes (e.g., `green-500`)
-2. Browse the complete color palette by family
-3. View exact matches and similar color suggestions
-4. One-click copy for Hex, RGB, OKLCH values
-5
-### Hex to Tailwind Conversion
-
-1. Input any color format (Hex, RGB, OKLCH)
-2. Real-time display of equivalent values in other formats
-3. Automatically calculate and display the closest Tailwind colors
-4. One-click copy for color codes and class names
-
-### Tailwind to Hex Lookup
+```
 
 1. Search Tailwind color classes (e.g., `green-500`)
 2. Browse the complete color palette
@@ -109,86 +104,134 @@ src/
 
 ### Color Matching Algorithm
 
-Uses the **Euclidean distance algorithm** in RGB color space to find the closest color:
+Euclidean distance in RGB color space:
 
 ```
 
-distance = sqrt((r₁-r₂)² + (g₁-g₂)² + (b₁-b₂)²)
+distance = √((r₁-r₂)² + (g₁-g₂)² + (b₁-b₂)²)
 
-````
+```
 
-**Why RGB?**
-
-- Fast computation (real-time feedback < 2ms)
-- Low precomputation cost
-- Sufficient matching accuracy (RGB error < 2%)
+**Why RGB space?**
+- ⚡ Fast computation (< 2ms real-time)
+- 💾 Low memory footprint
+- 🎯 Sufficient accuracy (< 2% error)
 
 ### Performance Optimization
 
-- Uses `React.memo()` to prevent unnecessary re-renders
-- Pre-computes color palette (< 15ms)
-- Real-time queries execute in < 2ms
+- **React.memo()** - Prevents unnecessary re-renders
+- **Pre-computed palette** - < 15ms initialization
+- **Fast queries** - < 2ms execution time
+- **Code splitting** - Lazy loaded routes
 
-## Supported Color Formats
+## 🌈 Supported Formats
 
-### Input Formats
+### Input Examples
 
-Hex
+**Hex**
+```
+
+#3cc766 (full format)
+#3c7 (shorthand)
+
+```
+
+**RGB**
+```
+
+60, 199, 102
+rgb(60, 199, 102)
+
+```
+
+**OKLCH**
+```
+
+oklch(73.4% 0.181 149.3)
+
+````
+
+## 📊
 
 - `#3cc766` (full)
 - `#3c7` (shorthand)
 
-RGB
+RGB| Precision | Description |
+|----------|-----------|-------------|
+| 0-20     | ⭐⭐⭐⭐⭐ | Almost identical |
+| 20-50    | ⭐⭐⭐⭐   | Very similar |
+| 50-100   | ⭐⭐⭐     | Same family |
+| 100-150  | ⭐⭐       | Different shades |
+| 150+     | ⭐         | Different families |
 
-- `60, 199, 102`
-- `rgb(60, 199, 102)`
-
-OKLCH
-
-- `oklch(73.4% 0.181 149.3)`
-
-### Default Color
-
-The application displays Green-500 (`#3cc766`) by default.
-
-## Color Matching Precision
-
-| Distance Range | Precision Level | Description                        |
-| -------------- | --------------- | ---------------------------------- |
-| 0-20           | Very High       | Almost identical                   |
-| 20-50          | High            | Very close                         |
-| 50-100         | Medium          | Same color family with differences |
-| 100-150        | Low             | Different shades                   |
-| 150+           | Very Low        | Different color families           |
-
-## Supported Browsers
+## 🌐 Browser Support
 
 - Chrome/Edge 90+
 - Firefox 88+
 - Safari 14+
+- Modern mobile browsers
 
-## Using useColorInput Hook
+## 🔧 Development
+
+### Using the useColorInput Hook
 
 ```typescript
-const {, HexToTailwind)
-- **Functions**: camelCase (hexToRgb, findClosestTailwindColors)
-- **Constants**: UPPER_SNAKE_CASE (DEFAULT_COLOR)
-- **Types**: PascalCase (TailwindColor, ColorMatch, AppMode)
-- **Enums**: PascalCase with UPPER_SNAKE_CASE values (AppMode.HEX_TO_TAILWIND)
+import { useColorInput } from '@/hooks';
 
-## Development Tips
+const MyComponent = () => {
+  const {
+    hexInput,
+    rgbInput,
+    oklchInput,
+    parsedColor,
+    matches,
+    setHexInput,
+    setRgbInput,
+    setOklchInput,
+  } = useColorInput('#3cc766');
 
-- All components are wrapped with `React.memo()` for optimal performance
-- Use the `@` alias for absolute imports (configured in `vite.config.ts`)
-- Color calculations are optimized to run in < 2ms for real-time feedback
-- The Tailwind color palette is pre-computed for fast lookups
-  parsedColor, // Parsed color object
-  matches, // List of closest colors
-  setHexInput, // Update Hex input
-  setRgbInput, // Update RGB input
-  setOklchInput, // Update OKLCH input
-} = useColorInput(defaultColor);
+  return (
+    // Your component JSX
+  );
+};
 ````
+
+### Code Style
+
+- **Components**: PascalCase (`ColorCard`, `HexToTailwind`)
+- **Functions**: camelCase (`hexToRgb`, `findClosestColors`)
+- **Constants**: UPPER_SNAKE_CASE (`DEFAULT_COLOR`, `TAILWIND_COLORS`)
+- **Types**: PascalCase (`TailwindColor`, `ColorMatch`)
+
+### Key Development Tips
+
+1. All presentational components use `React.memo()` for performance
+2. Use `@` alias for absolute imports (configured in `vite.config.ts`)
+3. Color calculations are optimized for < 2ms execution
+4. Tailwind color palette is pre-computed at initialization
+5. Format code with `npm run format` before committing
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+## 👨‍💻 Author
+
+Created with ❤️ for Tailwind CSS developers
+
+---
+
+If you find this tool helpful, please consider giving it a ⭐ on GitHub!
 
 ## Code Style Guide
 

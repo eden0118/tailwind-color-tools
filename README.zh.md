@@ -1,92 +1,92 @@
-# Color Converter
+# Tailwind Color Tools
 
-一個現代化、高效能的 Tailwind CSS 顏色轉換工具，幫助開發者輕鬆在 Hex、RGB、OKLCH 和 Tailwind 顏色類別之間進行轉換。
+專為 Tailwind CSS 開發者打造的現代化、高效能顏色轉換工具。在 Hex、RGB、OKLCH 和 Tailwind 顏色類別之間無縫轉換，並提供即時視覺回饋。
 
-[English](./README.md) | [中文](./README.zh.md)
+[English](./README.md) | [繁體中文](./README.zh.md)
 
-## 功能特色
+## ✨ 功能特色
 
-- **Code to Class** - 輸入任意顏色代碼（Hex、RGB、OKLCH），自動找到最接近的 Tailwind 顏色類別
-- **Class to Code** - 瀏覽完整 Tailwind 調色盤，快速查找顏色對應的代碼值
-- **實時同步** - 三種顏色格式實時聯動轉換
-- **精確匹配** - 使用 Euclidean 距離演算法在 RGB 色彩空間中尋找最接近的顏色
-- **響應式設計** - 完美支援桌面、平板和手機設備
-- **模式切換** - 透過圖標導航輕鬆切換轉換模式
+- **🎨 雙向轉換**
+  - Code to Class：將 Hex/RGB/OKLCH 轉換為 Tailwind 顏色類別
+  - Class to Code：從 Tailwind 類別名稱查詢顏色值
 
-## 技術棧
+- **⚡ 即時同步** - 三種顏色格式（Hex、RGB、OKLCH）在輸入時即時更新
 
-- **React 19** - 現代 UI 框架
-- **TypeScript** - 型別安全的開發體驗
-- **Vite 6** - 超快速開發伺服器
-- **Tailwind CSS v4** - 實用優先的 CSS 框架
-- **Lucide React** - 輕量級 SVG 圖示庫
-- **Prettier** - 自動程式碼格式化
+- **🎯 精確匹配** - 使用 Euclidean 距離演算法在 RGB 空間中找到最接近的 Tailwind 顏色
 
-## 快速開始
+- **📱 響應式設計** - 針對桌面、平板和手機優化，手機版提供收合選單
+
+- **🌐 多語系支援** - 支援英文和繁體中文，可透過語言切換器切換
+
+- **♿ 無障礙支援** - ARIA 標籤、鍵盤導航和螢幕閱讀器支援
+
+- **🚀 高效能** - 查詢時間 < 2ms，使用 memoized 元件和預計算調色盤
+
+## 🛠️ 技術堆疊
+
+- **React 19** - 最新版 UI 框架，效能優化
+- **TypeScript** - 完整的型別安全保障
+- **Vite 6** - 次世代建置工具，支援 HMR
+- **Tailwind CSS v4** - 實用優先的 CSS 框架，具備現代化功能
+- **React Router v7** - 客戶端路由
+- **i18next** - 國際化框架
+- **Lucide React** - 精美且一致的圖示集
+- \*🚀 快速開始
 
 ```bash
+# 複製專案
+git clone https://github.com/yourusername/tailwind-color-tools.git
+cd tailwind-color-tools
+
 # 安裝依賴
 npm install
 
 # 啟動開發伺服器
 npm run dev
 
+# 建置run dev
+
 # 建構生產版本
 npm run build
 
 # 預覽生產版本
-npm run preview
-
-# 格式化程式碼
-npm run format
-```
-
-## 專案結構
+npm📁 專案結構
 
 ```
+
 src/
 ├── components/
-│   ├── App.tsx                      # 主應用程式及模式切換
-│   ├── ColorCard.tsx                # 顏色資訊顯示
-│   ├── ColorInput.tsx               # 多格式顏色輸入框
-│   ├── HexToTailwind.tsx            # Code to Class 轉換
-│   ├── TailwindToHex.tsx            # Class to Code 查詢
-│   ├── Footer.tsx                   # 頁尾區塊
-│   ├── hexToTailwind/
-│   │   ├── ColorMatchList.tsx       # 匹配顏色清單
-│   │   ├── DetectedColorSection.tsx # 偵測到的顏色顯示
-│   │   ├── SectionDivider.tsx       # 視覺分隔線
-│   │   └── ArrowDownIcon.tsx        # 向下箭頭圖標
-│   └── tailwindToHex/
-│       ├── ColorFamily.tsx          # 顏色族群分組
-│       ├── ExactMatchView.tsx       # 精確顏色匹配顯示
-│       ├── NoResultsView.tsx        # 無結果訊息
-│       ├── PaletteView.tsx          # 完整調色盤檢視
-│       ├── SearchInput.tsx          # 搜尋功能
-│       └── SuggestionsView.tsx      # 顏色建議
+│ ├── HexToTailwind.tsx # Code to Class 模式
+│ ├── TailwindToHex.tsx # Class to Code 模式
+│ ├── ColorCard.tsx # 顏色預覽卡片
+│ ├── ColorInput.tsx # 多格式輸入
+│ ├── Footer.tsx # 應用程式頁尾
+│ ├── hexToTailwind/ # Code to Class 子元件
+│ │ ├── ArrowDownIcon.tsx
+│ │ ├── ColorMatchList.tsx
+│ │ ├── DetectedColorSection.tsx
+│ │ └── SectionDivider.tsx
+│ └── tailwindToHex/ # Class to Code 子元件
+│ ├── ColorFamily.tsx
+│ ├── ExactMatchView.tsx
+│ ├── NoResultsView.tsx
+│ ├── PaletteView.tsx
+│ ├── SearchInput.tsx
+│ └── SuggestionsView.tsx
 ├── hooks/
-│   ├── index.ts
-│   Code to Class (Hex 到 Tailwind)
+│ └── useColorInput.ts # 顏色輸入邏輯
+├── utils/
+│ └── colorUtils.ts # 顏色轉換與匹配
+├── constants/
+│ └── colors.ts # Tailwind 調色盤資料
+├── locales/
+│ ├── en.json # 英文翻譯
+│ └── zh-TW.json # 繁體中文
+├── App.tsx # 根元件與路由
+├── i18n.ts # i18n 設定
+└── main.tsx # 應用程式入口
 
-1. 輸入任意顏色格式（Hex、RGB、OKLCH）
-2. 實時同步顯示其他格式的等效值
-3. 自動計算並顯示最接近的 Tailwind 顏色
-4. 一鍵複製顏色代碼和類別名稱
-
-### Class to Code (Tailwind 到 Hex)
-
-1. 搜尋 Tailwind 顏色類別（如 `green-500`）
-2. 瀏覽按顏色族群組織的完整調色盤
-3. 檢視精確匹配和相似顏色建議
-4. 一鍵複製 Hex、RGB、OKLCH 值
-5
-### Hex to Tailwind 轉換
-
-1. 輸入任意顏色格式（Hex、RGB、OKLCH）
-2. 實時同步顯示其他格式的等效值
-3. 自動計算並顯示最接近的 Tailwind 顏色
-4. 一鍵複製顏色代碼和類別名稱
-
+```
 ### Tailwind to Hex 查詢
 
 1. 搜尋 Tailwind 顏色類別（如 `green-500`）
@@ -107,92 +107,144 @@ src/
 
 ```
 
-距離 = sqrt((r₁-r₂)² + (g₁-g₂)² + (b₁-b₂)²)
+距離 📖 使用方式
 
-````
+### Code to Class 模式
 
-**為什麼選擇 RGB？**
+1. 輸入任意顏色格式：：標準 sRGB 色彩空間轉換
 
-- 計算速度快（實時反饋 < 2ms）
-- 預計算成本低
-- 匹配精度足夠（RGB 誤差 < 2%）
+- **RGB ↔ OKLCH**：知覺均勻色彩空間，提供更好的匹配效果
+  - RGB：`60, 199, 102` 或 `rgb(60, 199, 102)`
+  - OKLCH：`oklch(73.4% 0.181 149.3)`
+
+2. 查看即時格式轉換
+3. 檢視最接近的 Tailwind 顏色類別
+4. 一鍵複製顏色代碼或類別名稱
+
+### Class to Code 模式
+
+RGB 色彩空間中的 Euclidean 距離：
+
+```
+距離 = √((r₁-r₂)² + (g₁-g₂)² + (b₁-b₂)²)
+```
+
+**為什麼選擇 RGB 空間？**
+
+- ⚡ 運算速度快（< 2ms 即時回應）
+- 💾 記憶體佔用低
+- 🎯 精度足夠（誤差 < 2%）
 
 ### 效能最佳化
 
-- 使用 `React.memo()` 防止不必要的重新渲染
-- 色彩表預計算（< 15ms）
-- 實時查詢耗時 < 2ms
+- **React.memo()** - 防止不必要的重新渲染
+- **預計算調色盤** - 初始化時間 < 15ms
+- **快速查詢** - 執行時間 < 2ms
+- **程式碼分割** - 路由延遲載入
 
-## 支援的顏色格式
+## 🌈 支援格式
 
-### 輸入格式
+### 輸入範例
 
-Hex
+**Hex**
 
-- `#3cc766` (完整)
-- `#3c7` (縮寫)
+```
+#3cc766    (完整格式)
+#3c7       (縮寫)
+```
 
-RGB
+**RGB**
 
-- `60, 199, 102`
-- `rgb(60, 199, 102)`
+```
+60, 199, 102
+rgb(60, 199, 102)
+```
 
-OKLCH
+**OKLCH**
 
-- `oklch(73.4% 0.181 149.3)`
+```
+oklch(73.4% 0.181 149.3)
+```
 
-### 預設顏色
+## 📊
 
 應用預設顯示顏色為 Green-500 (`#3cc766`)
 
 ## 色彩匹配精度
 
-| 距離範圍 | 精度等級 | 說明           |
-| -------- | -------- | -------------- |
-| 0-20     | 非常高   | 幾乎完全相同   |
-| 20-50    | 高       | 非常接近       |
-| 50-100   | 中       | 同色系但有差異 |
-| 100-150  | 低       | 不同深淺       |
-| 150+     | 很低     | 不同色系       |
+| 距離    | 精度       | 說明         |
+| ------- | ---------- | ------------ |
+| 0-20    | ⭐⭐⭐⭐⭐ | 幾乎完全相同 |
+| 20-50   | ⭐⭐⭐⭐   | 非常相似     |
+| 50-100  | ⭐⭐⭐     | 同一色系     |
+| 100-150 | ⭐⭐       | 不同深淺     |
+| 150+    | ⭐         | 不同色系     |
 
-## 支援的瀏覽器
+## 🌐 瀏覽器支援
 
 - Chrome/Edge 90+
 - Firefox 88+
 - Safari 14+
+- 現代化行動瀏覽器
 
-## 使用 useColorInput Hook
+## 🔧 開發
+
+### 使用 useColorInput Hook
 
 ```typescript
-const {、HexToTailwind)
-- **函式**：camelCase (hexToRgb、findClosestTailwindColors)
-- **常數**：UPPER_SNAKE_CASE (DEFAULT_COLOR)
-- **型別**：PascalCase (TailwindColor、ColorMatch、AppMode)
-- **枚舉**：PascalCase 且值為 UPPER_SNAKE_CASE (AppMode.HEX_TO_TAILWIND)
+import { useColorInput } from '@/hooks';
 
-## 開發提示
+const MyComponent = () => {
+  const {
+    hexInput,
+    rgbInput,
+    oklchInput,
+    parsedColor,
+    matches,
+    setHexInput,
+    setRgbInput,
+    setOklchInput,
+  } = useColorInput('#3cc766');
 
-- 所有元件都使用 `React.memo()` 包裝以獲得最佳效能
-- 在 `vite.config.ts` 中配置的 `@` 別名用於絕對導入
-- 顏色計算經過最佳化，實時反饋耗時 < 2ms
-- Tailwind 顏色調色盤經過預計算以實現快速查找
-  parsedColor, // 解析後的顏色
-  matches, // 最接近的顏色列表
-  setHexInput, // 更新 Hex 輸入
-  setRgbInput, // 更新 RGB 輸入
-  setOklchInput, // 更新 OKLCH 輸入
-} = useColorInput(defaultColor);
-````
+  return (
+    // 你的元件 JSX
+  );
+};
+```
 
-## 代碼規範
+### 程式碼風格
 
-- **元件**：PascalCase (ColorCard)
-- **函式**：camelCase (hexToRgb)
-- **常數**：UPPER_SNAKE_CASE (DEFAULT_COLOR)
-- **型別**：PascalCase (TailwindColor)
+- **元件**：PascalCase（`ColorCard`、`HexToTailwind`）
+- **函式**：camelCase（`hexToRgb`、`findClosestColors`）
+- **常數**：UPPER_SNAKE_CASE（`DEFAULT_COLOR`、`TAILWIND_COLORS`）
+- **型別**：PascalCase（`TailwindColor`、`ColorMatch`）
 
-## 授權
+### 開發重點提示
 
-MIT License
+1. 所有展示型元件都使用 `React.memo()` 以提升效能
+2. 使用 `@` 別名進行絕對路徑匯入（在 `vite.config.ts` 中設定）
+3. 顏色計算已最佳化至 < 2ms 執行時間
+4. Tailwind 調色盤在初始化時預先計算
+5. 提交前請使用 `npm run format` 格式化程式碼
 
-**Created with ❤️ for Tailwind CSS developers**
+## 🤝 貢獻
+
+歡迎貢獻！請隨時提交 Pull Request。
+
+1. Fork 此專案
+2. 建立你的功能分支（`git checkout -b feature/AmazingFeature`）
+3. 提交你的變更（`git commit -m 'Add some AmazingFeature'`）
+4. 推送到分支（`git push origin feature/AmazingFeature`）
+5. 開啟 Pull Request
+
+## 📄 授權
+
+本專案採用 MIT 授權 - 詳見 [LICENSE](./LICENSE) 檔案
+
+## 👨‍💻 作者
+
+用 ❤️ 為 Tailwind CSS 開發者打造
+
+---
+
+如果覺得這個工具有幫助，請在 GitHub 上給個 ⭐！

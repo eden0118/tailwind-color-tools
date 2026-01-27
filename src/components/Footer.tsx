@@ -20,7 +20,7 @@ const Footer = memo(() => {
       <div className="text-muted mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-2 p-6">
         <div className="flex items-center gap-1.5">
           <a
-            href="https://github.com/eden0118"
+            href="https://github.com/eden0118/tailwind-color-tools.git"
             className="flex items-center justify-center rounded-full p-1 hover:bg-slate-950"
           >
             <Github size={16} />
