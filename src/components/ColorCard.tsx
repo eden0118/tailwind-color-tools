@@ -83,6 +83,7 @@ const CopyButton = memo<CopyButtonProps>(({ text, type, isCopied, onCopy }) => (
   <button
     onClick={() => onCopy(text, type)}
     className="bg-border text-muted hover:bg-ui hover:text-primary flex items-center justify-center gap-1 rounded px-3 py-1.5 text-xs transition-colors md:text-sm"
+    aria-label={isCopied ? 'Copied' : `Copy ${text}`}
   >
     <span className="font-mono">{text}</span>
     {isCopied ? <Check size={14} className="text-accent-green" /> : <Clipboard size={14} />}
@@ -118,6 +119,7 @@ const FormatDisplay = memo<FormatDisplayProps>(({ text, type, isCopied, onCopy }
       onClick={() => onCopy(text, type)}
       className="text-ui hover:text-muted transition-colors"
       title={`Copy ${type?.toUpperCase()}`}
+      aria-label={isCopied ? 'Copied' : `Copy ${type?.toUpperCase()} value`}
     >
       {isCopied ? <Check size={12} className="text-accent-green" /> : <Clipboard size={12} />}
     </button>
@@ -199,6 +201,8 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
       <div
         className="flex h-24 w-full shrink-0 items-center justify-center rounded-lg shadow-inner md:w-24"
         style={{ backgroundColor: color.hex }}
+        role="img"
+        aria-label={`Color preview: ${color.hex}`}
       >
         {isClosest && (
           <span
@@ -218,6 +222,7 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
             onClick={() => handleCopy(color.class, 'class')}
             className="hover:text-accent transition-colors"
             title="Copy class name"
+            aria-label={copied === 'class' ? 'Copied class name' : `Copy class name ${color.class}`}
           >
             {copied === 'class' ? (
               <Check size={16} className="text-accent" />

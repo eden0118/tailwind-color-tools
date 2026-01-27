@@ -13,6 +13,12 @@ A modern, high-performance Tailwind CSS color conversion tool that enables devel
 - **Responsive Design** - Perfect support for desktop, tablet, and mobile devices
 - **Mode Switching** - Easy toggle between conversion modes with icon-based navigation
 
+## Accessibility & SEO
+
+- **Screen Reader Friendly** - Semantic HTML and ARIA labels ensure a good experience for screen reader users.
+- **Keyboard Navigation** - Full support for keyboard interaction across all inputs and buttons.
+- **SEO Optimized** - Enhanced meta tags, structured data (JSON-LD), and canonical links for better search engine visibility.
+
 ## Technology Stack
 
 - **React 19** - Modern UI framework

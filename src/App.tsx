@@ -82,6 +82,7 @@ interface ModeButtonProps {
 const ModeButton = memo<ModeButtonProps>(({ icon: Icon, label, isActive, onClick }) => (
   <button
     onClick={onClick}
+    aria-pressed={isActive}
     className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium transition-all md:gap-2 md:px-4 md:py-2 md:text-sm ${
       isActive
         ? 'bg-accent text-gray-900 shadow-lg'

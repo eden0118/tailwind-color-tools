@@ -14,7 +14,7 @@
  * - 焦點時環形變換顏色，提供視覺反饋
  * - 虛擬框架指導使用者輸入格式
  */
-import { memo, useState, useRef } from 'react';
+import { memo, useState, useRef, useId } from 'react';
 import { Info } from 'lucide-react';
 
 interface ColorInputProps {
@@ -83,6 +83,8 @@ const accentMap = {
  */
 const ColorInput = memo<ColorInputProps>(
   ({ label, value, onChange, placeholder, accentColor, helpText }) => {
+    const inputId = useId();
+    const tooltipId = useId();
     const [isTooltipVisible, setTooltipVisible] = useState(false);
     const showTimeoutRef = useRef<number | null>(null);
     const hideTimeoutRef = useRef<number | null>(null);
@@ -113,31 +115,39 @@ const ColorInput = memo<ColorInputProps>(
     return (
       <div className="space-y-2">
         <div className="flex items-center gap-2">
-          <label className={`input-label ${accentStyles.label}`}>{label}</label>
+          <label htmlFor={inputId} className={`input-label ${accentStyles.label}`}>
+            {label}
+          </label>
           {/* Info Icon with Tooltip */}
           <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <button
               type="button"
               className="text-muted hover:text-secondaryText cursor-pointer transition-colors"
               aria-label="Color format info"
+              aria-expanded={isTooltipVisible}
+              aria-haspopup="true"
+              aria-describedby={isTooltipVisible ? tooltipId : undefined}
             >
               <Info size={14} />
             </button>
 
             {/* Tooltip */}
             {isTooltipVisible && tooltipText && (
-              <div className="absolute top-full left-1/2 z-50 mt-2 w-max max-w-xs -translate-x-1/2 transform">
-                <div className="border-border bg-background text-secondaryText rounded-lg border px-3 py-2 text-xs whitespace-pre-wrap shadow-lg">
-                  {tooltipText}
-                  {/* Tooltip Arrow */}
+              <div
+                id={tooltipId}
+                role="tooltip"
+                className="border-border bg-background text-secondaryText absolute top-full left-1/2 z-50 mt-2 w-max max-w-xs -translate-x-1/2 transform rounded-lg border px-3 py-2 text-xs whitespace-pre-wrap shadow-lg"
+              >
+                {tooltipText}
+                {/* Tooltip Arrow */}
                   <div className="border-b-primary absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent"></div>
-                </div>
               </div>
             )}
           </div>
         </div>
         <div className="relative">
           <input
+            id={inputId}
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
