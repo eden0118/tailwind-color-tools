@@ -16,7 +16,7 @@ const Footer = memo(() => {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-background/50 sticky top-0 z-50 border-t border-slate-600 backdrop-blur-md">
+    <footer className="relative bottom-0 border-t border-slate-600/50 backdrop-blur-md">
       <div className="text-muted mx-auto flex w-full max-w-6xl flex-col items-center justify-center gap-2 p-6">
         <div className="flex items-center gap-1.5">
           <a

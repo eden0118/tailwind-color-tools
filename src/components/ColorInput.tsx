@@ -60,7 +60,7 @@ const ColorInput = memo<ColorInputProps>(
     };
 
     return (
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center gap-2">
           <label htmlFor={inputId} className={`input-label ${accentStyles.label}`}>
             {label}
@@ -90,12 +90,12 @@ const ColorInput = memo<ColorInputProps>(
 
         {/* Expanded Description - shown below input when clicked */}
         {isExpanded && tooltipText && (
-          <div className="text-secondaryText bg-secondary/50 flex flex-col items-center justify-between space-y-1 overflow-hidden rounded-lg font-mono text-xs leading-relaxed whitespace-pre-wrap shadow">
-            <div className="w-full flex-1 p-3">{tooltipText}</div>
+          <div className="text-secondaryText bg-secondary/50 flex flex-col items-center justify-between overflow-hidden rounded-lg font-mono text-xs leading-relaxed whitespace-pre-wrap shadow">
+            <div className="w-full flex-1 p-4">{tooltipText}</div>
 
             <button
               onClick={() => setIsExpanded(false)}
-              className="text-primary hover:text-accent w-full shrink-0 bg-black/30 py-1 uppercase transition-all hover:bg-black/90"
+              className="text-primary hover:text-accent w-full shrink-0 bg-black/50 py-1.5 text-sm uppercase transition-all hover:bg-black/90"
               aria-label="Close description"
               title={t('common.close')}
             >

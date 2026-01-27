@@ -16,6 +16,7 @@ i18n
         translation: zhTW,
       },
     },
+    lng: 'en', // Set default language to English
     fallbackLng: 'en',
     debug: import.meta.env.DEV, // Enable debug in development
     interpolation: {

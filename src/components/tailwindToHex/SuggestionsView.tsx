@@ -39,12 +39,12 @@ const SuggestionsView = memo<SuggestionsViewProps>(({ suggestions, onSelect }) =
           <button
             key={s.class}
             onClick={() => onSelect(s.class)}
-            className="border-muted animate-scale-in hover:border-accent flex flex-col items-center gap-2 rounded-lg border bg-gray-950/5 p-3 opacity-0 transition-all hover:bg-white/5"
+            className="border-muted animate-scale-in hover:border-accent flex flex-col items-center gap-2 rounded-lg border bg-gray-950/5 p-3 opacity-0 transition-all hover:bg-gray-950"
             style={{ animationDelay: `${index * 50}ms` }}
           >
             {/* Color preview rectangle */}
             <div
-              className="h-8 w-full rounded shadow-lg shadow-white/5"
+              className="shadow-og h-8 w-full rounded ring-1 ring-white/20"
               style={{ backgroundColor: s.hex }}
             />
             {/* Color class name label */}

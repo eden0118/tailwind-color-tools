@@ -126,9 +126,7 @@ const FormatDisplay = memo<FormatDisplayProps>(({ text, type, isCopied, onCopy }
         className="text-ui hover:text-muted transition-colors"
         title={t('common.copy', { type: type?.toUpperCase() })}
         aria-label={
-          isCopied
-            ? t('common.copied')
-            : t('common.copy', { type: `${type?.toUpperCase()} value` })
+          isCopied ? t('common.copied') : t('common.copy', { type: `${type?.toUpperCase()} value` })
         }
       >
         {isCopied ? (
@@ -207,7 +205,7 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
 
   return (
     <div
-      className={`relative flex gap-4 rounded-xl p-4 transition-all duration-300 hover:-translate-y-1 md:items-center ${
+      className={`relative flex min-w-max gap-4 rounded-xl p-4 transition-all duration-300 hover:-translate-y-1 md:items-center ${
         isClosest
           ? 'bg-background-secondary ring-accent/70 scale-[1.02] shadow-lg ring-2'
           : 'bg-background-secondary/50 hover:bg-background-secondary'
