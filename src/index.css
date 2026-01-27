@@ -23,8 +23,13 @@
   }
 
   button {
-    @apply cursor-pointer transition-all;
+    @apply cursor-pointer transition-all duration-300;
   }
+
+  a {
+    @apply text-muted hover:text-accent no-underline transition-all;
+  }
+
   /* Custom scrollbar for better aesthetics */
   ::-webkit-scrollbar {
     @apply h-2 w-2;

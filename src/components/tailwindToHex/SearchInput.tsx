@@ -27,7 +27,7 @@ const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => {
       <label htmlFor={inputId} className="input-label text-muted">
         Enter Tailwind Class
       </label>
-      <div className="relative">
+      <div className="relative mt-1.5">
         {/* Search icon - decorative, hidden from screen readers */}
         <Search
           className="text-muted absolute top-1/2 left-4 -translate-y-1/2"
