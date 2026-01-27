@@ -86,7 +86,11 @@ const CopyButton = memo<CopyButtonProps>(({ text, type, isCopied, onCopy }) => (
     aria-label={isCopied ? 'Copied' : `Copy ${text}`}
   >
     <span className="font-mono">{text}</span>
-    {isCopied ? <Check size={14} className="text-accent-green" /> : <Clipboard size={14} />}
+    {isCopied ? (
+      <Check size={14} className="text-accent-green animate-pop" />
+    ) : (
+      <Clipboard size={14} />
+    )}
   </button>
 ));
 
@@ -121,7 +125,11 @@ const FormatDisplay = memo<FormatDisplayProps>(({ text, type, isCopied, onCopy }
       title={`Copy ${type?.toUpperCase()}`}
       aria-label={isCopied ? 'Copied' : `Copy ${type?.toUpperCase()} value`}
     >
-      {isCopied ? <Check size={12} className="text-accent-green" /> : <Clipboard size={12} />}
+      {isCopied ? (
+        <Check size={12} className="text-accent-green animate-pop" />
+      ) : (
+        <Clipboard size={12} />
+      )}
     </button>
   </div>
 ));
@@ -191,7 +199,7 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
 
   return (
     <div
-      className={`relative flex flex-col items-center gap-4 rounded-xl p-4 transition-all duration-300 md:flex-row ${
+      className={`relative flex flex-col items-center gap-4 rounded-xl p-4 transition-all duration-300 hover:-translate-y-1 md:flex-row ${
         isClosest
           ? 'bg-background-secondary ring-accent scale-[1.02] shadow-lg ring-2'
           : 'bg-background-secondary/50 hover:bg-background-secondary'

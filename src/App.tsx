@@ -18,7 +18,10 @@ const App = memo(() => {
     <div className="selection:bg-primary/30 min-h-screen font-sans">
       <Header mode={mode} onModeChange={setMode} />
       <main className="mx-auto max-w-5xl px-4 py-8 md:py-12">
-        <div className="bg-background-primary/50 min-h-[60vh] rounded-3xl p-8">
+        <div
+          key={mode}
+          className="bg-background-primary/50 animate-fade-in-up min-h-[60vh] rounded-3xl p-8"
+        >
           {mode === AppMode.HEX_TO_TAILWIND && <HexToTailwind />}
           {mode === AppMode.TAILWIND_TO_HEX && <TailwindToHex />}
         </div>

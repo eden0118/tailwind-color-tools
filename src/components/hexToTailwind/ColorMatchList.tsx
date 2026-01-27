@@ -12,7 +12,13 @@ const ColorMatchList = memo<ColorMatchListProps>(({ matches }) => (
     <SectionDivider label="Closest Matches" />
     <div className="space-y-3">
       {matches.map((match, index) => (
-        <ColorCard key={match.class} color={match} isClosest={index === 0} />
+        <div
+          key={match.class}
+          className="animate-fade-in-up opacity-0"
+          style={{ animationDelay: `${index * 100}ms` }}
+        >
+          <ColorCard color={match} isClosest={index === 0} />
+        </div>
       ))}
     </div>
   </div>
