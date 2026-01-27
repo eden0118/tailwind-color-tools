@@ -27,12 +27,12 @@ const SearchInput = memo<SearchInputProps>(({ value, onChange, onClear }) => {
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="e.g. blue-500, red-600..."
-          className="input pl-12 focus:ring-pink-500"
+          className="input focus:ring-accent pl-12"
         />
         {value && (
           <button
             onClick={onClear}
-            className="text-muted hover:bg-border/50 hover:text-secondaryText absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 transition-colors"
+            className="text-muted hover:bg-border/50 hover:text-accent absolute top-1/2 right-4 -translate-y-1/2 rounded-full p-1.5 transition-colors"
             title="Clear input"
             aria-label="Clear search"
           >

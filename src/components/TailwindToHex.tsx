@@ -123,10 +123,7 @@ const TailwindToHex = memo(() => {
 
     // 生成建議清單（用於部分匹配）
     const cleanInput = input.toLowerCase().replace(/^(bg|text|border|ring)-/, '');
-    const filtered = ALL_TAILWIND_COLORS.filter((tc) => tc.class.includes(cleanInput)).slice(
-      0,
-      SUGGESTION_LIMIT
-    );
+    const filtered = ALL_TAILWIND_COLORS.filter((tc) => tc.class.includes(cleanInput));
 
     setSuggestions(filtered);
   }, [input]);
