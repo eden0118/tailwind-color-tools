@@ -38,7 +38,6 @@ import ExactMatchView from './tailwindToHex/ExactMatchView';
 import SuggestionsView from './tailwindToHex/SuggestionsView';
 import NoResultsView from './tailwindToHex/NoResultsView';
 import PaletteView from './tailwindToHex/PaletteView';
-import { SUGGESTION_LIMIT } from '@/constants';
 
 // ============================================================================
 // TailwindToHex Component - Tailwind 顏色類別查詢和預覽

@@ -1,3 +1,19 @@
+/**
+ * @fileoverview
+ * useColorInput - Custom hook for managing color input and format conversion
+ *
+ * Core Responsibilities:
+ * - Parse user input in three formats: Hex, RGB, and OKLCH
+ * - Synchronize values across all three formats when valid
+ * - Find closest matching Tailwind colors
+ * - Manage input state separately from parsed/valid state
+ * - Provide handlers for format-specific input changes
+ *
+ * Design Pattern:
+ * - Input strings are kept separate from parsed values to allow invalid intermediate states
+ * - When a valid color is parsed, all related values are synchronized across formats
+ * - Only updates matched colors when a valid RGB value is available
+ */
 import { useState, useCallback, useEffect } from 'react';
 import {
   hexToRgb,
@@ -30,7 +46,7 @@ export interface UseColorInputReturn {
 }
 
 export const useColorInput = (defaultColor: string = DEFAULT_COLOR): UseColorInputReturn => {
-  // 1. 輔助函數：統一計算初始狀態，避免 Hardcode
+  // Helper: Initialize state from default color to avoid hardcoding
   const getInitialState = (hex: string) => {
     const rgb = hexToRgb(hex);
     if (rgb) {
@@ -46,7 +62,7 @@ export const useColorInput = (defaultColor: string = DEFAULT_COLOR): UseColorInp
         matches: findClosestTailwindColors(hex),
       };
     }
-    // Fallback 如果 defaultColor 無效
+    // Fallback if defaultColor is invalid
     return {
       hex,
       rgb: '',

@@ -82,15 +82,11 @@ interface CopyButtonProps {
 const CopyButton = memo<CopyButtonProps>(({ text, type, isCopied, onCopy }) => (
   <button
     onClick={() => onCopy(text, type)}
-    className="bg-border text-muted hover:bg-ui hover:text-primary flex items-center justify-center gap-1 rounded px-3 py-1.5 text-xs transition-colors md:text-sm"
+    className="text-muted hover:text-primary flex items-center justify-center gap-1.5 rounded p-1 text-xs transition-colors md:text-sm"
     aria-label={isCopied ? 'Copied' : `Copy ${text}`}
   >
-    <span className="font-mono">{text}</span>
-    {isCopied ? (
-      <Check size={14} className="text-accent-green animate-pop" />
-    ) : (
-      <Clipboard size={14} />
-    )}
+    <span className="min-w-max font-mono">{text}</span>
+    {isCopied ? <Check size={14} className="text-accent animate-pop" /> : <Clipboard size={14} />}
   </button>
 ));
 
@@ -199,22 +195,22 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
 
   return (
     <div
-      className={`relative flex flex-col items-center gap-4 rounded-xl p-4 transition-all duration-300 hover:-translate-y-1 md:flex-row ${
+      className={`relative flex gap-4 rounded-xl p-4 transition-all duration-300 hover:-translate-y-1 md:items-center ${
         isClosest
-          ? 'bg-background-secondary ring-accent scale-[1.02] shadow-lg ring-2'
+          ? 'bg-background-secondary ring-accent/70 scale-[1.02] shadow-lg ring-2'
           : 'bg-background-secondary/50 hover:bg-background-secondary'
       }`}
     >
       {/* 色塊預覽 */}
       <div
-        className="flex h-24 w-full shrink-0 items-center justify-center rounded-lg shadow-inner md:w-24"
+        className="flex min-h-max w-16 shrink-0 items-center justify-center rounded-lg shadow-inner md:h-24 md:w-24"
         style={{ backgroundColor: color.hex }}
         role="img"
         aria-label={`Color preview: ${color.hex}`}
       >
         {isClosest && (
           <span
-            className={`rounded-full bg-black/20 px-2 py-1 text-xs font-bold text-${textColor}`}
+            className={`rounded-full bg-black/20 px-2 py-1 text-[10px] font-bold md:text-xs text-${textColor}`}
           >
             Closest
           </span>
@@ -222,9 +218,9 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
       </div>
 
       {/* 資訊區塊 */}
-      <div className="w-full flex-1 text-center md:text-left">
+      <div className="w-full flex-1">
         {/* 顏色名稱 + 複製小按鈕 */}
-        <div className="flex items-center justify-center gap-2 md:justify-start">
+        <div className="flex items-center gap-2">
           <h3 className="text-primaryText text-xl font-bold">{color.class}</h3>
           <button
             onClick={() => handleCopy(color.class, 'class')}
@@ -241,7 +237,7 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
         </div>
 
         {/* 複製按鈕（Hex、RGB、OKLCH） */}
-        <div className="mt-3 flex flex-col gap-2 md:flex-row md:gap-3">
+        <div className="mt-2 flex flex-col items-start gap-1 md:mt-3 md:flex-row md:gap-3">
           <CopyButton text={color.hex} type="hex" isCopied={copied === 'hex'} onCopy={handleCopy} />
           <CopyButton text={rgbString} type="rgb" isCopied={copied === 'rgb'} onCopy={handleCopy} />
           <CopyButton
