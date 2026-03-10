@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://tailwind-color-tools.example.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <lastmod>2026-03-10T00:00:00Z</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tailwind-color-tools.example.com/" />
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://tailwind-color-tools.example.com/" />
+  </url>
+  <url>
+    <loc>https://tailwind-color-tools.example.com/code-to-class</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-03-10T00:00:00Z</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tailwind-color-tools.example.com/code-to-class" />
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://tailwind-color-tools.example.com/code-to-class" />
+  </url>
+  <url>
+    <loc>https://tailwind-color-tools.example.com/class-to-code</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-03-10T00:00:00Z</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tailwind-color-tools.example.com/class-to-code" />
+    <xhtml:link rel="alternate" hreflang="zh-TW" href="https://tailwind-color-tools.example.com/class-to-code" />
+  </url>
+</urlset>

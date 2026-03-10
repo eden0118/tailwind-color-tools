@@ -2,6 +2,7 @@ import { memo, useState } from 'react';
 import { Routes, Route, Navigate, NavLink } from 'react-router-dom';
 import { Palette, Hash, Languages, Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useAnalytics } from '@/hooks/useAnalytics';
 import HexToTailwind from '@/components/HexToTailwind';
 import TailwindToHex from '@/components/TailwindToHex';
 import Footer from './components/Footer';
@@ -14,8 +15,12 @@ import Footer from './components/Footer';
  * - Manage application routing
  * - Render header with navigation
  * - Provide layout structure and styling
+ * - Initialize analytics tracking
  */
 const App = memo(() => {
+  // Initialize Vercel Analytics
+  useAnalytics();
+
   return (
     <div className="selection:bg-primary/30 min-h-screen font-sans">
       {/* Application header with navigation */}

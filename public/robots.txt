@@ -1,0 +1,20 @@
+# Tailwind Color Tools - Robots configuration
+User-agent: *
+Allow: /
+Disallow:
+
+# Specific crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://tailwind-color-tools.example.com/sitemap.xml
+
+# Crawl delay (optional - 0 means no delay)
+Crawl-delay: 0
+
+# Request rate (optional - pages per 10 seconds)
+Request-rate: 1/1s

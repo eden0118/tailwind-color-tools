@@ -32,6 +32,8 @@
  */
 import { useState, useEffect, useMemo, memo, useCallback } from 'react';
 import { findHexByClass, ALL_TAILWIND_COLORS, buildColorGroups } from '@/utils/colorUtils';
+import { useSEO } from '@/hooks/useSEO';
+import { getPageSEO } from '@/config/seoConfig';
 import { TailwindColor } from '@/types';
 import SearchInput from './tailwindToHex/SearchInput';
 import ExactMatchView from './tailwindToHex/ExactMatchView';
@@ -67,6 +69,11 @@ import PaletteView from './tailwindToHex/PaletteView';
  * 5. 沒有輸入時，顯示完整調色盤（PaletteView）
  */
 const TailwindToHex = memo(() => {
+  // ========================================================================
+  // SEO Initialization - SEO 設定初始化
+  // ========================================================================
+  useSEO(getPageSEO('classToCode'));
+
   // ========================================================================
   // State Management - 狀態管理
   // ========================================================================

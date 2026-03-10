@@ -9,6 +9,8 @@
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useColorInput } from '@/hooks/useColorInput';
+import { useSEO } from '@/hooks/useSEO';
+import { getPageSEO } from '@/config/seoConfig';
 import DetectedColorSection from './hexToTailwind/DetectedColorSection';
 import ColorMatchList from './hexToTailwind/ColorMatchList';
 import ArrowDownIcon from './hexToTailwind/ArrowDownIcon';
@@ -21,6 +23,10 @@ import { DEFAULT_COLOR } from '@/constants';
 
 const HexToTailwind = memo(() => {
   const { t } = useTranslation();
+
+  // Initialize SEO for this page
+  useSEO(getPageSEO('codeToClass'));
+
   const {
     hexInput,
     rgbInput,
