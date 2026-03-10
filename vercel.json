@@ -76,9 +76,5 @@
       ]
     }
   ],
-  "env": ["VITE_API_URL", "NODE_ENV"],
-  "analytics": {
-    "enabled": true,
-    "seed": 0.01
-  }
+  "env": ["VITE_API_URL", "NODE_ENV"]
 }
