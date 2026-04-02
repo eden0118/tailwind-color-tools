@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, NavLink } from 'react-router-dom';
 import { Palette, Hash, Languages, Menu, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import { ToastProvider } from '@/context/ToastContext';
 import HexToTailwind from '@/components/HexToTailwind';
 import TailwindToHex from '@/components/TailwindToHex';
 import Footer from './components/Footer';
@@ -16,28 +17,31 @@ import Footer from './components/Footer';
  * - Render header with navigation
  * - Provide layout structure and styling
  * - Initialize analytics tracking
+ * - Provide Toast system for global notifications
  */
 const App = memo(() => {
   // Initialize Vercel Analytics
   useAnalytics();
 
   return (
-    <div className="selection:bg-primary/30 min-h-screen font-sans">
-      {/* Application header with navigation */}
-      <Header />
-      {/* Main content area - renders active mode */}
-      <main className="mx-auto max-w-5xl min-w-xs px-6 py-8 md:py-12">
-        <div className="bg-background-primary/50 animate-fade-in-up min-h-[60vh] rounded-3xl">
-          <Routes>
-            <Route path="/" element={<Navigate to="/code-to-class" replace />} />
-            <Route path="/code-to-class" element={<HexToTailwind />} />
-            <Route path="/class-to-code" element={<TailwindToHex />} />
-          </Routes>
-        </div>
-      </main>
-      {/* Application footer */}
-      <Footer />
-    </div>
+    <ToastProvider>
+      <div className="selection:bg-primary/30 min-h-screen font-sans">
+        {/* Application header with navigation */}
+        <Header />
+        {/* Main content area - renders active mode */}
+        <main className="mx-auto max-w-5xl min-w-xs px-6 py-8 md:py-12">
+          <div className="bg-background-primary/50 animate-fade-in-up min-h-[60vh] rounded-3xl">
+            <Routes>
+              <Route path="/" element={<Navigate to="/code-to-class" replace />} />
+              <Route path="/code-to-class" element={<HexToTailwind />} />
+              <Route path="/class-to-code" element={<TailwindToHex />} />
+            </Routes>
+          </div>
+        </main>
+        {/* Application footer */}
+        <Footer />
+      </div>
+    </ToastProvider>
   );
 });
 

@@ -12,6 +12,8 @@
 
 - **⚡ 即時同步** - 三種顏色格式（Hex、RGB、OKLCH）在輸入時即時更新
 
+- **📋 一鍵複製** - 複製任何顏色格式，並展示 Toast 確認提示
+
 - **🎯 精確匹配** - 使用 Euclidean 距離演算法在 RGB 空間中找到最接近的 Tailwind 顏色
 
 - **📱 響應式設計** - 針對桌面、平板和手機優化，手機版提供收合選單
@@ -31,7 +33,8 @@
 - **React Router v7** - 客戶端路由
 - **i18next** - 國際化框架
 - **Lucide React** - 精美且一致的圖示集
-- \*🚀 快速開始
+
+## 🚀 快速開始
 
 ```bash
 # 複製專案
@@ -44,57 +47,86 @@ npm install
 # 啟動開發伺服器
 npm run dev
 
-# 建置run dev
-
 # 建構生產版本
 npm run build
 
 # 預覽生產版本
-npm📁 專案結構
-
+npm run preview
 ```
 
+## 📁 專案結構
+
+```
 src/
 ├── components/
-│ ├── HexToTailwind.tsx # Code to Class 模式
-│ ├── TailwindToHex.tsx # Class to Code 模式
-│ ├── ColorCard.tsx # 顏色預覽卡片
-│ ├── ColorInput.tsx # 多格式輸入
-│ ├── Footer.tsx # 應用程式頁尾
-│ ├── hexToTailwind/ # Code to Class 子元件
-│ │ ├── ArrowDownIcon.tsx
-│ │ ├── ColorMatchList.tsx
-│ │ ├── DetectedColorSection.tsx
-│ │ └── SectionDivider.tsx
-│ └── tailwindToHex/ # Class to Code 子元件
-│ ├── ColorFamily.tsx
-│ ├── ExactMatchView.tsx
-│ ├── NoResultsView.tsx
-│ ├── PaletteView.tsx
-│ ├── SearchInput.tsx
-│ └── SuggestionsView.tsx
+│   ├── HexToTailwind.tsx          # Code to Class 模式
+│   ├── TailwindToHex.tsx          # Class to Code 模式
+│   ├── ColorCard.tsx              # 顏色預覽卡片
+│   ├── ColorInput.tsx             # 多格式輸入
+│   ├── Footer.tsx                 # 應用程式頁尾
+│   ├── Toast.tsx                  # Toast 通知
+│   ├── hexToTailwind/             # Code to Class 子元件
+│   │   ├── ArrowDownIcon.tsx
+│   │   ├── ColorMatchList.tsx
+│   │   ├── DetectedColorSection.tsx
+│   │   └── SectionDivider.tsx
+│   └── tailwindToHex/             # Class to Code 子元件
+│       ├── ColorFamily.tsx
+│       ├── ExactMatchView.tsx
+│       ├── NoResultsView.tsx
+│       ├── PaletteView.tsx
+│       ├── SearchInput.tsx
+│       └── SuggestionsView.tsx
+├── context/                       # React Context 提供者
+│   └── ToastContext.tsx           # 全局 Toast 系統
 ├── hooks/
-│ └── useColorInput.ts # 顏色輸入邏輯
+│   ├── useColorInput.ts           # 顏色輸入邏輯
+│   ├── useToast.ts                # Toast 狀態管理
+│   ├── useSEO.ts                  # SEO 元資料管理
+│   └── useAnalytics.ts            # 分析追蹤
 ├── utils/
-│ └── colorUtils.ts # 顏色轉換與匹配
+│   └── colorUtils.ts              # 顏色轉換與匹配
 ├── constants/
-│ └── colors.ts # Tailwind 調色盤資料
+│   ├── colors.ts                  # Tailwind 調色盤資料
+│   └── index.ts
+├── config/
+│   ├── index.ts
+│   └── seoConfig.ts
 ├── locales/
-│ ├── en.json # 英文翻譯
-│ └── zh-TW.json # 繁體中文
-├── App.tsx # 根元件與路由
-├── i18n.ts # i18n 設定
-└── main.tsx # 應用程式入口
-
+│   ├── en.json                    # 英文翻譯
+│   └── zh-TW.json                 # 繁體中文翻譯
+├── App.tsx                        # 根元件與路由
+├── i18n.ts                        # i18n 設定
+└── main.tsx                       # 應用程式入口
 ```
-### Tailwind to Hex 查詢
+
+## 🎯 使用方式
+
+### Code to Class 模式 (Hex/RGB/OKLCH → Tailwind)
+
+1. 輸入任意顏色格式：
+   - Hex：`#3cc766` 或 `#3c7`
+   - RGB：`60, 199, 102` 或 `rgb(60, 199, 102)`
+   - OKLCH：`oklch(73.4% 0.181 149.3)`
+2. 即時查看相符的 Tailwind 顏色類別
+3. 點擊結果複製（顯示 Toast 確認）
+
+### Class to Code 模式 (Tailwind → Hex/RGB/OKLCH)
 
 1. 搜尋 Tailwind 顏色類別（如 `green-500`）
 2. 瀏覽完整的顏色調色盤
 3. 一鍵複製 Hex、RGB、OKLCH 值
 4. 支援前綴自動移除（如 `bg-`、`text-`）
 
-## 技術亮點
+## 📋 複製回饋
+
+當你複製任何顏色格式時：
+
+- **圖示動畫**：剪貼簿圖示變為勾選標記
+- **Toast 通知**：確認訊息在畫面中央顯示
+- **自動關閉**：通知在 2 秒後自動消失
+
+## 🔧 技術亮點
 
 ### 色彩空間轉換
 
@@ -103,27 +135,7 @@ src/
 
 ### 顏色匹配演算法
 
-使用 **Euclidean 距離演算法** 在 RGB 色彩空間中尋找最接近的顏色：
-
-```
-
-距離 📖 使用方式
-
-### Code to Class 模式
-
-1. 輸入任意顏色格式：：標準 sRGB 色彩空間轉換
-
-- **RGB ↔ OKLCH**：知覺均勻色彩空間，提供更好的匹配效果
-  - RGB：`60, 199, 102` 或 `rgb(60, 199, 102)`
-  - OKLCH：`oklch(73.4% 0.181 149.3)`
-
-2. 查看即時格式轉換
-3. 檢視最接近的 Tailwind 顏色類別
-4. 一鍵複製顏色代碼或類別名稱
-
-### Class to Code 模式
-
-RGB 色彩空間中的 Euclidean 距離：
+在 RGB 色彩空間中使用 Euclidean 距離：
 
 ```
 距離 = √((r₁-r₂)² + (g₁-g₂)² + (b₁-b₂)²)
@@ -141,6 +153,7 @@ RGB 色彩空間中的 Euclidean 距離：
 - **預計算調色盤** - 初始化時間 < 15ms
 - **快速查詢** - 執行時間 < 2ms
 - **程式碼分割** - 路由延遲載入
+- **Toast Context** - 高效的全局狀態管理
 
 ## 🌈 支援格式
 
@@ -166,11 +179,7 @@ rgb(60, 199, 102)
 oklch(73.4% 0.181 149.3)
 ```
 
-## 📊
-
-應用預設顯示顏色為 Green-500 (`#3cc766`)
-
-## 色彩匹配精度
+## 📊 色彩匹配精度指南
 
 | 距離    | 精度       | 說明         |
 | ------- | ---------- | ------------ |
@@ -189,7 +198,9 @@ oklch(73.4% 0.181 149.3)
 
 ## 🔧 開發
 
-### 使用 useColorInput Hook
+### 使用 Hooks
+
+#### useColorInput Hook
 
 ```typescript
 import { useColorInput } from '@/hooks';
@@ -212,12 +223,30 @@ const MyComponent = () => {
 };
 ```
 
+#### useToast Hook (基於 Context)
+
+```typescript
+import { useToastContext } from '@/context/ToastContext';
+
+const MyComponent = () => {
+  const { showToast } = useToastContext();
+
+  const handleAction = () => {
+    showToast('Action completed!', 'success', 2000);
+  };
+
+  return (
+    // 你的元件 JSX
+  );
+};
+```
+
 ### 程式碼風格
 
-- **元件**：PascalCase（`ColorCard`、`HexToTailwind`）
-- **函式**：camelCase（`hexToRgb`、`findClosestColors`）
-- **常數**：UPPER_SNAKE_CASE（`DEFAULT_COLOR`、`TAILWIND_COLORS`）
-- **型別**：PascalCase（`TailwindColor`、`ColorMatch`）
+- **元件**：PascalCase (`ColorCard`、`HexToTailwind`)
+- **函式**：camelCase (`hexToRgb`、`findClosestColors`)
+- **常數**：UPPER_SNAKE_CASE (`DEFAULT_COLOR`、`TAILWIND_COLORS`)
+- **型別**：PascalCase (`TailwindColor`、`ColorMatch`)
 
 ### 開發重點提示
 
@@ -225,7 +254,8 @@ const MyComponent = () => {
 2. 使用 `@` 別名進行絕對路徑匯入（在 `vite.config.ts` 中設定）
 3. 顏色計算已最佳化至 < 2ms 執行時間
 4. Tailwind 調色盤在初始化時預先計算
-5. 提交前請使用 `npm run format` 格式化程式碼
+5. Toast 系統使用 React Context 進行全局狀態管理
+6. 提交前請使用 `npm run format` 格式化程式碼
 
 ## 🤝 貢獻
 

@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { ColorMatch, TailwindColor } from '@/types';
 import { Clipboard, Check } from 'lucide-react';
 import { rgbToOklch } from '@/utils/colorUtils';
+import { useToastContext } from '@/context/ToastContext';
 import { COPY_FEEDBACK_DURATION } from '@/constants';
 
 // ============================================================================
@@ -166,6 +167,7 @@ FormatDisplay.displayName = 'FormatDisplay';
  */
 const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
   const { t } = useTranslation();
+  const { showToast } = useToastContext();
   // ========================================================================
   // State Management
   // ========================================================================
@@ -183,13 +185,18 @@ const ColorCard = memo<ColorCardProps>(({ color, isClosest }) => {
    * 1. 寫入文本到剪貼板 API
    * 2. 設定複製成功的視覺狀態
    * 3. 在 COPY_FEEDBACK_DURATION（2秒）後清除狀態
+   * 4. 顯示 Toast 通知
    */
-  const handleCopy = useCallback((text: string, type: CopyType) => {
-    navigator.clipboard.writeText(text);
-    setCopied(type);
-    const timer = setTimeout(() => setCopied(null), COPY_FEEDBACK_DURATION);
-    return () => clearTimeout(timer);
-  }, []);
+  const handleCopy = useCallback(
+    (text: string, type: CopyType) => {
+      navigator.clipboard.writeText(text);
+      setCopied(type);
+      showToast(t('common.copied'), 'success', COPY_FEEDBACK_DURATION);
+      const timer = setTimeout(() => setCopied(null), COPY_FEEDBACK_DURATION);
+      return () => clearTimeout(timer);
+    },
+    [showToast, t]
+  );
 
   // ========================================================================
   // Derived Values - 衍生值
